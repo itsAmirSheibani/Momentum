@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Task(models.Model):
 
-    class Priorty(models.TextChoices):
+    class Priority(models.TextChoices):
         HIGH = "high", "High"
         MEDIUM = "medium", "Medium"
         LOW = "low", "Low"
@@ -14,8 +14,8 @@ class Task(models.Model):
     title = models.CharField()
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=50, null=True, blank=True)
-    priorty = models.CharField(
-        max_length=10, choices=Priorty.choices, default=Priorty.MEDIUM)
+    priority = models.CharField(
+        max_length=10, choices=Priority.choices, default=Priority.MEDIUM)
     due_date = models.DateField()
     due_time = models.TimeField(blank=True, null=True)
     is_completed = models.BooleanField(default=False)
@@ -23,7 +23,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['due_time', '-priorty']
+        ordering = ['due_time', '-priority']
 
     def __str__(self):
         return self.title
@@ -80,7 +80,7 @@ class Habit(models.Model):
                                  choices=Frequency.choices, default=Frequency.DAILY)
 
     target_per_week = models.PositiveSmallIntegerField()
-    is_achived = models.BooleanField(default=False)
+    is_archived = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -109,7 +109,7 @@ class Goal(models.Model):
     title = models.CharField(max_length=75)
     target_date = models.DateField(null=True, blank=True)
     progress = models.PositiveSmallIntegerField(default=0)
-    is_achived = models.BooleanField(default=False)
+    is_archived = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

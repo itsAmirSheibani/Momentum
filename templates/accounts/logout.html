@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Signed Out — Momentum</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'dashbord/img/favicon.svg' %}"
+    />
+    <link rel="stylesheet" href="{% static 'accounts/momentum-auth.css' %}" />
+  </head>
+  <body>
+    <main class="auth-shell">
+      <section class="auth-panel auth-panel--form">
+        <div class="form-wrap">
+          <a href="/" class="brand">
+    <span class="brand-mark">
+        <img
+            src="{% static 'dashbord/img/favicon.svg' %}"
+            alt="Momentum"
+        >
+    </span>
+
+    <span>Momentum</span>
+</a>
+
+          <div class="eyebrow">See you soon</div>
+          <h1>You’re signed out.</h1>
+          <p class="subtitle">
+            Your session has ended. Come back whenever you’re ready to keep the
+            momentum going.
+          </p>
+
+          <div class="form-card">
+            <form method="post" action="">
+              {% csrf_token %}
+              
+            </form>
+
+            <a
+              href="{% url 'accounts:login' %}"
+              class="btn btn--blue"
+              style="display: block; text-align: center; text-decoration: none"
+              >Back to sign in</a
+            >
+          </div>
+
+          <div class="auth-footer">
+            Momentum — personal productivity & life management.
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-panel auth-panel--visual">
+        <div class="visual-inner">
+          <div class="visual-copy">
+            <h2>Pause. Reset. Continue.</h2>
+            <p>
+              A quiet finish to the day. Your dashboard will be here when you
+              return.
+            </p>
+          </div>
+
+          <div class="mock-window">
+            <div class="mock-top">
+              <span class="dot"></span><span class="dot"></span
+              ><span class="dot"></span>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-side">
+                <div class="mini-brand">Momentum</div>
+                <div class="mock-nav">Dashboard</div>
+                <div class="mock-nav">Tasks</div>
+                <div class="mock-nav">Journal</div>
+                <div class="mock-nav">Goals</div>
+                <div class="mock-nav">Finance</div>
+              </aside>
+              <div class="mock-main">
+                <div class="mini-title">Today</div>
+                <div class="mini-card" style="margin-top: 18px">
+                  <div class="mini-pill">Momentum</div>
+                  <div style="font-size: 15px; font-weight: 720">
+                    You made progress today.
+                  </div>
+                  <div class="mini-line"></div>
+                  <div class="mini-line short"></div>
+                </div>
+                <div
+                  class="mini-card mini-card--accent"
+                  style="margin-top: 14px"
+                >
+                  <div class="mini-pill">Next</div>
+                  <div style="font-size: 15px; font-weight: 720">
+                    Come back and pick up where you left off.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
