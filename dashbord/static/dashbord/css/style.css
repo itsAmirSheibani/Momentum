@@ -1,0 +1,1338 @@
+/* ==========================================================================
+   Momentum — Design tokens
+   ========================================================================== */
+:root {
+  /* Color: warm-neutral surfaces, single restrained accent, sparing semantics */
+  --mtm-bg: #FAFAF8;
+  --mtm-surface: #FFFFFF;
+  --mtm-surface-muted: #F3F2EF;
+  --mtm-border: #E9E7E2;
+  --mtm-border-strong: #DCDAD3;
+
+  --mtm-text-primary: #1C1C1E;
+  --mtm-text-secondary: #6E6E73;
+  --mtm-text-tertiary: #A5A4A0;
+
+  --mtm-accent: #5B6EF5;
+  --mtm-accent-soft: #EEF0FE;
+  --mtm-accent-strong: #4457E8;
+
+  --mtm-success: #2FA86B;
+  --mtm-success-soft: #E7F6EE;
+  --mtm-warning: #E8A23D;
+  --mtm-warning-soft: #FDF3E4;
+  --mtm-danger: #E5484D;
+  --mtm-danger-soft: #FDEAEA;
+
+  /* Type */
+  --mtm-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Radius + shadow */
+  --mtm-radius-sm: 10px;
+  --mtm-radius-md: 14px;
+  --mtm-radius-lg: 20px;
+  --mtm-shadow-sm: 0 1px 2px rgba(28, 28, 30, 0.04);
+  --mtm-shadow-md: 0 8px 24px rgba(28, 28, 30, 0.06);
+
+  /* Layout */
+  --mtm-sidebar-width: 232px;
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--mtm-font);
+  background: var(--mtm-bg);
+  color: var(--mtm-text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.45;
+}
+
+h1, h2, h3, p, dl, dd, ul, figure { margin: 0; }
+ul { list-style: none; padding: 0; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+input, textarea { font-family: inherit; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mtm-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ==========================================================================
+   App shell
+   ========================================================================== */
+.momentum-app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+.momentum-sidebar {
+  width: var(--mtm-sidebar-width);
+  flex-shrink: 0;
+  background: var(--mtm-surface);
+  border-right: 1px solid var(--mtm-border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+}
+
+.momentum-sidebar__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px 22px;
+}
+
+.momentum-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.momentum-sidebar__logo-mark svg { display: block; }
+.momentum-sidebar__logo-bg { fill: var(--mtm-accent); }
+
+.momentum-sidebar__logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.momentum-sidebar__close {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--mtm-text-secondary);
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.momentum-nav { flex: 1; }
+
+.momentum-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.momentum-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 12px;
+  border-radius: var(--mtm-radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mtm-text-secondary);
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.momentum-nav__icon {
+  display: inline-flex;
+  color: var(--mtm-text-tertiary);
+  transition: color 0.12s ease;
+}
+
+.momentum-nav__link:hover {
+  background: var(--mtm-surface-muted);
+  color: var(--mtm-text-primary);
+}
+
+.momentum-nav__link:hover .momentum-nav__icon { color: var(--mtm-text-secondary); }
+
+.momentum-nav__link.is-active {
+  background: var(--mtm-accent-soft);
+  color: var(--mtm-accent-strong);
+  font-weight: 600;
+}
+
+.momentum-nav__link.is-active .momentum-nav__icon { color: var(--mtm-accent-strong); }
+
+.momentum-sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 12px;
+  border-top: 1px solid var(--mtm-border);
+}
+
+.momentum-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--mtm-radius-sm);
+  margin-top: 4px;
+}
+
+.momentum-profile:hover { background: var(--mtm-surface-muted); }
+
+.momentum-profile__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mtm-accent-soft);
+  color: var(--mtm-accent-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.momentum-profile__meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.momentum-profile__name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--mtm-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.momentum-profile__role {
+  font-size: 12px;
+  color: var(--mtm-text-tertiary);
+}
+
+.momentum-sidebar__scrim {
+  display: none;
+}
+
+/* ==========================================================================
+   Main / topbar
+   ========================================================================== */
+.momentum-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.momentum-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(250, 250, 248, 0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--mtm-border);
+}
+
+.momentum-topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.momentum-topbar__menu {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--mtm-text-primary);
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.momentum-topbar__date {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mtm-text-secondary);
+}
+
+.momentum-topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.momentum-icon-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--mtm-border);
+  background: var(--mtm-surface);
+  color: var(--mtm-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.momentum-icon-btn:hover {
+  background: var(--mtm-surface-muted);
+  border-color: var(--mtm-border-strong);
+}
+
+.momentum-icon-btn__dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mtm-danger);
+  border: 1.5px solid var(--mtm-surface);
+}
+
+.momentum-topbar__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--mtm-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+/* ==========================================================================
+   Content / hero
+   ========================================================================== */
+.momentum-content {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 32px 60px;
+}
+
+.momentum-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.momentum-hero__title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.momentum-hero__subtitle {
+  margin-top: 4px;
+  font-size: 14.5px;
+  color: var(--mtm-text-secondary);
+}
+
+.momentum-hero__stats {
+  display: flex;
+  gap: 22px;
+}
+
+.momentum-hero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.momentum-hero__stat-label {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mtm-text-tertiary);
+  font-weight: 600;
+}
+
+.momentum-hero__stat-value {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Grid
+   ========================================================================== */
+.momentum-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+.momentum-grid__main,
+.momentum-grid__side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   Card
+   ========================================================================== */
+.momentum-card {
+  background: var(--mtm-surface);
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-lg);
+  box-shadow: var(--mtm-shadow-sm);
+  padding: 22px;
+}
+
+.momentum-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.momentum-card__title {
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.momentum-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--mtm-radius-sm);
+  padding: 9px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
+}
+
+.momentum-btn--primary {
+  background: var(--mtm-accent);
+  color: #fff;
+}
+
+.momentum-btn--primary:hover { background: var(--mtm-accent-strong); }
+
+.momentum-btn--secondary {
+  background: var(--mtm-surface);
+  border-color: var(--mtm-border-strong);
+  color: var(--mtm-text-primary);
+  width: 100%;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.momentum-btn--secondary:hover { background: var(--mtm-surface-muted); }
+
+/* ==========================================================================
+   Tasks
+   ========================================================================== */
+.momentum-tasks__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.momentum-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--mtm-surface-muted);
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-sm);
+  padding: 8px 12px;
+  color: var(--mtm-text-tertiary);
+}
+
+.momentum-search__input {
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 13.5px;
+  color: var(--mtm-text-primary);
+  width: 140px;
+}
+
+.momentum-search__input::placeholder { color: var(--mtm-text-tertiary); }
+
+.momentum-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.momentum-task-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 12px;
+  border-radius: var(--mtm-radius-md);
+  transition: background-color 0.12s ease;
+}
+
+.momentum-task-card:hover { background: var(--mtm-surface-muted); }
+
+.momentum-task-card__check {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  border: 1.6px solid var(--mtm-border-strong);
+  background: var(--mtm-surface);
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.momentum-task-card__check:hover { border-color: var(--mtm-accent); }
+
+.momentum-task-card.is-completed .momentum-task-card__check {
+  background: var(--mtm-success);
+  border-color: var(--mtm-success);
+  color: #fff;
+}
+
+.momentum-task-card__body { flex: 1; min-width: 0; }
+
+.momentum-task-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.momentum-task-card__desc {
+  font-size: 12.5px;
+  color: var(--mtm-text-secondary);
+  margin-bottom: 8px;
+}
+
+.momentum-task-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.momentum-task-card.is-completed .momentum-task-card__title {
+  color: var(--mtm-text-tertiary);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.momentum-task-card.is-completed .momentum-task-card__desc,
+.momentum-task-card.is-completed .momentum-task-card__due,
+.momentum-task-card.is-completed .momentum-task-card__category {
+  color: var(--mtm-text-tertiary);
+}
+
+.momentum-task-card.is-completed .momentum-tag {
+  opacity: 0.55;
+}
+
+.momentum-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.momentum-tag--high { color: var(--mtm-danger); background: var(--mtm-danger-soft); }
+.momentum-tag--medium { color: var(--mtm-warning); background: var(--mtm-warning-soft); }
+.momentum-tag--low { color: var(--mtm-success); background: var(--mtm-success-soft); }
+
+.momentum-task-card__due,
+.momentum-task-card__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--mtm-text-secondary);
+}
+
+.momentum-empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: var(--mtm-text-tertiary);
+  font-size: 13.5px;
+}
+
+/* ==========================================================================
+   Timeline
+   ========================================================================== */
+.momentum-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.momentum-timeline__item {
+  display: grid;
+  grid-template-columns: 64px 14px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 4px;
+  position: relative;
+}
+
+.momentum-timeline__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 70px;
+  top: 30px;
+  bottom: -9px;
+  width: 1px;
+  background: var(--mtm-border);
+}
+
+.momentum-timeline__time {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mtm-text-tertiary);
+}
+
+.momentum-timeline__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  justify-self: center;
+  background: var(--mtm-accent);
+}
+
+.momentum-timeline__dot--high { background: var(--mtm-danger); }
+.momentum-timeline__dot--medium { background: var(--mtm-warning); }
+.momentum-timeline__dot--low { background: var(--mtm-success); }
+
+.momentum-timeline__label {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Mood + energy
+   ========================================================================== */
+.momentum-mood__options {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 14px 0 18px;
+}
+
+.momentum-mood__option {
+  flex: 1;
+  font-size: 21px;
+  line-height: 1;
+  background: var(--mtm-surface-muted);
+  border: 1.5px solid transparent;
+  border-radius: var(--mtm-radius-sm);
+  padding: 9px 0;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
+}
+
+.momentum-mood__option:hover { transform: translateY(-1px); }
+
+.momentum-mood__option.is-selected {
+  background: var(--mtm-accent-soft);
+  border-color: var(--mtm-accent);
+}
+
+.momentum-energy__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mtm-text-secondary);
+  margin-bottom: 8px;
+}
+
+.momentum-energy__value { color: var(--mtm-accent-strong); }
+
+.momentum-energy__range {
+  width: 100%;
+  accent-color: var(--mtm-accent);
+  height: 4px;
+}
+
+/* ==========================================================================
+   Note
+   ========================================================================== */
+.momentum-note__textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 84px;
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-sm);
+  background: var(--mtm-surface-muted);
+  padding: 11px 13px;
+  font-size: 13.5px;
+  color: var(--mtm-text-primary);
+  outline: none;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.momentum-note__textarea:focus {
+  border-color: var(--mtm-accent);
+  background: var(--mtm-surface);
+}
+
+/* ==========================================================================
+   Quick stats
+   ========================================================================== */
+.momentum-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.momentum-stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.momentum-stats__value {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.momentum-stats__label {
+  font-size: 12px;
+  color: var(--mtm-text-tertiary);
+}
+
+/* ==========================================================================
+   Goals (Apple Health–style rings)
+   ========================================================================== */
+.momentum-goal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.momentum-goal {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.momentum-goal__ring {
+  width: 36px;
+  height: 36px;
+  transform: rotate(-90deg);
+}
+
+.momentum-goal__ring-track {
+  fill: none;
+  stroke: var(--mtm-surface-muted);
+  stroke-width: 4;
+}
+
+.momentum-goal__ring-fill {
+  fill: none;
+  stroke: var(--mtm-accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 113.1;
+  stroke-dashoffset: calc(113.1 - (113.1 * var(--progress, 0) / 100));
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.momentum-goal__title {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.momentum-progress-bar {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--mtm-surface-muted);
+  overflow: hidden;
+}
+
+.momentum-progress-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--mtm-accent);
+}
+
+.momentum-goal__percent {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--mtm-text-secondary);
+}
+
+/* ==========================================================================
+   Finance
+   ========================================================================== */
+.momentum-finance__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.momentum-finance__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+}
+
+.momentum-finance__row dt { color: var(--mtm-text-secondary); }
+
+.momentum-finance__row--total {
+  padding-top: 10px;
+  border-top: 1px solid var(--mtm-border);
+  font-weight: 700;
+}
+
+.momentum-finance__value { font-weight: 600; }
+.momentum-finance__value--positive { color: var(--mtm-success); }
+.momentum-finance__value--negative { color: var(--mtm-danger); }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .momentum-grid {
+    grid-template-columns: 1fr;
+  }
+  .momentum-grid__side { order: -1; }
+}
+
+@media (max-width: 860px) {
+  :root { --mtm-sidebar-width: 240px; }
+
+  .momentum-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    box-shadow: var(--mtm-shadow-md);
+  }
+
+  .momentum-app.sidebar-open .momentum-sidebar {
+    transform: translateX(0);
+  }
+
+  .momentum-sidebar__close { display: inline-flex; }
+
+  .momentum-topbar__menu { display: inline-flex; }
+
+  .momentum-app.sidebar-open .momentum-sidebar__scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 28, 30, 0.32);
+    z-index: 30;
+  }
+
+  .momentum-content { padding: 22px 18px 48px; }
+  .momentum-topbar { padding: 14px 18px; }
+  .momentum-hero { align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .momentum-hero__stats {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .momentum-card { padding: 18px; }
+
+  .momentum-tasks__controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .momentum-search { flex: 1; }
+  .momentum-search__input { width: 100%; }
+
+  .momentum-btn--primary { flex-shrink: 0; }
+
+  .momentum-timeline__item {
+    grid-template-columns: 52px 12px 1fr;
+  }
+
+  .momentum-timeline__item:not(:last-child)::after { left: 57px; }
+}
+
+/* ==========================================================================
+   Page header (used on Tasks / Journal / Habits / Goals / Finance)
+   ========================================================================== */
+.momentum-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.momentum-page-header__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.momentum-page-header__subtitle {
+  margin-top: 3px;
+  font-size: 13.5px;
+  color: var(--mtm-text-secondary);
+}
+
+/* ==========================================================================
+   Filter tabs (segmented control)
+   ========================================================================== */
+.momentum-filter-tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--mtm-surface-muted);
+  border-radius: var(--mtm-radius-sm);
+}
+
+.momentum-filter-tabs__btn {
+  border: none;
+  background: none;
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mtm-text-secondary);
+  border-radius: 8px;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.momentum-filter-tabs__btn:hover { color: var(--mtm-text-primary); }
+
+.momentum-filter-tabs__btn.is-active {
+  background: var(--mtm-surface);
+  color: var(--mtm-text-primary);
+  box-shadow: var(--mtm-shadow-sm);
+}
+
+/* ==========================================================================
+   Journal page
+   ========================================================================== */
+.momentum-journal-entry {
+  padding: 16px 4px;
+}
+
+.momentum-journal-entry:not(:last-child) {
+  border-bottom: 1px solid var(--mtm-border);
+}
+
+.momentum-journal-entry__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.momentum-journal-entry__date {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.momentum-journal-entry__mood {
+  font-size: 16px;
+}
+
+.momentum-journal-entry__text {
+  font-size: 13.5px;
+  color: var(--mtm-text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Habits page
+   ========================================================================== */
+.momentum-habit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.momentum-habit-card {
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-md);
+  padding: 16px;
+}
+
+.momentum-habit-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.momentum-habit-card__name {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.momentum-habit-card__frequency {
+  font-size: 12px;
+  color: var(--mtm-text-tertiary);
+  margin-top: 2px;
+}
+
+.momentum-habit-card__streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mtm-warning);
+  white-space: nowrap;
+}
+
+.momentum-habit-days {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.momentum-habit-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.momentum-habit-day__label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--mtm-text-tertiary);
+}
+
+.momentum-habit-day__dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--mtm-surface-muted);
+  border: 1.5px solid transparent;
+}
+
+.momentum-habit-day__dot.is-done {
+  background: var(--mtm-success-soft);
+  border-color: var(--mtm-success);
+  position: relative;
+}
+
+.momentum-habit-day__dot.is-today {
+  border-color: var(--mtm-accent);
+}
+
+/* ==========================================================================
+   Finance page — transactions
+   ========================================================================== */
+.momentum-finance-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.momentum-finance-summary__card {
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-md);
+  padding: 16px;
+}
+
+.momentum-finance-summary__label {
+  font-size: 12px;
+  color: var(--mtm-text-tertiary);
+  font-weight: 600;
+}
+
+.momentum-finance-summary__value {
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.momentum-transaction-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.momentum-transaction {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+}
+
+.momentum-transaction:not(:last-child) {
+  border-bottom: 1px solid var(--mtm-border);
+}
+
+.momentum-transaction__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.momentum-transaction__icon--income {
+  background: var(--mtm-success-soft);
+  color: var(--mtm-success);
+}
+
+.momentum-transaction__icon--expense {
+  background: var(--mtm-danger-soft);
+  color: var(--mtm-danger);
+}
+
+.momentum-transaction__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.momentum-transaction__title {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.momentum-transaction__date {
+  font-size: 12px;
+  color: var(--mtm-text-tertiary);
+  margin-top: 1px;
+}
+
+.momentum-transaction__amount {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.momentum-transaction__amount--income { color: var(--mtm-success); }
+.momentum-transaction__amount--expense { color: var(--mtm-danger); }
+
+/* ==========================================================================
+   Responsive — new page sections
+   ========================================================================== */
+@media (max-width: 720px) {
+  .momentum-finance-summary { grid-template-columns: 1fr; }
+  .momentum-habit-grid { grid-template-columns: 1fr; }
+  .momentum-habit-day__dot { width: 22px; height: 22px; }
+}
+
+/* ==========================================================================
+   Settings page
+   ========================================================================== */
+.momentum-settings-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.momentum-form-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.momentum-form-row:not(:last-child) {
+  border-bottom: 1px solid var(--mtm-border);
+}
+
+.momentum-form-row__label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--mtm-text-secondary);
+}
+
+.momentum-form-row__hint {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mtm-text-tertiary);
+  margin-top: 2px;
+}
+
+.momentum-input {
+  width: 100%;
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-sm);
+  background: var(--mtm-surface-muted);
+  padding: 9px 13px;
+  font-size: 13.5px;
+  color: var(--mtm-text-primary);
+  outline: none;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.momentum-input:focus {
+  border-color: var(--mtm-accent);
+  background: var(--mtm-surface);
+}
+
+.momentum-select {
+  width: 100%;
+  border: 1px solid var(--mtm-border);
+  border-radius: var(--mtm-radius-sm);
+  background: var(--mtm-surface-muted);
+  padding: 9px 13px;
+  font-size: 13.5px;
+  color: var(--mtm-text-primary);
+  outline: none;
+}
+
+.momentum-settings-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--mtm-border);
+}
+
+.momentum-settings-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--mtm-accent-soft);
+  color: var(--mtm-accent-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.momentum-settings-avatar-row__name {
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.momentum-settings-avatar-row__email {
+  font-size: 12.5px;
+  color: var(--mtm-text-tertiary);
+  margin-top: 2px;
+}
+
+/* Toggle switch */
+.momentum-toggle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.momentum-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.momentum-toggle__track {
+  position: absolute;
+  inset: 0;
+  background: var(--mtm-border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.momentum-toggle__track::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+  box-shadow: var(--mtm-shadow-sm);
+}
+
+.momentum-toggle input:checked + .momentum-toggle__track {
+  background: var(--mtm-accent);
+}
+
+.momentum-toggle input:checked + .momentum-toggle__track::before {
+  transform: translateX(16px);
+}
+
+.momentum-settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.momentum-btn--danger {
+  background: var(--mtm-danger-soft);
+  color: var(--mtm-danger);
+}
+
+.momentum-btn--danger:hover { background: #FBDADA; }
+
+@media (max-width: 560px) {
+  .momentum-form-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}

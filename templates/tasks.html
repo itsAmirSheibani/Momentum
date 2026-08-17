@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentum — Tasks</title>
+<link rel="icon" type="image/svg+xml" href="{% static 'dashbord/img/favicon.svg' %}">
+<link rel="stylesheet" href="{% static 'dashbord/css/style.css' %}">
+</head>
+<body>
+
+<div class="momentum-app">
+
+  <!-- ============================================================
+       SIDEBAR
+  ============================================================ -->
+            {% include 'sidebar.html' %}
+  <!-- ============================================================
+       MAIN
+  ============================================================ -->
+  <div class="momentum-main">
+
+    <!-- TOP BAR -->
+    <header class="momentum-topbar">
+      <div class="momentum-topbar__left">
+        <button class="momentum-topbar__menu" id="sidebarOpen" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3.5 6.5H20.5M3.5 12H20.5M3.5 17.5H20.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <div class="momentum-topbar__date">
+          <span id="todayDate">Monday, August 17</span>
+        </div>
+      </div>
+      <div class="momentum-topbar__right">
+        <button class="momentum-icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M20 20L16 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <button class="momentum-icon-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 10.5C6 7 8.7 4.5 12 4.5C15.3 4.5 18 7 18 10.5C18 15 19.5 16.2 19.5 16.2H4.5C4.5 16.2 6 15 6 10.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M10 19.2C10.3 19.9 11.1 20.4 12 20.4C12.9 20.4 13.7 19.9 14 19.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="momentum-icon-btn__dot" aria-hidden="true"></span>
+        </button>
+        <a href="#" class="momentum-topbar__avatar" aria-label="Your profile">S</a>
+      </div>
+    </header>
+
+    <div class="momentum-content">
+      <div class="momentum-page-header">
+        <div>
+          <h1 class="momentum-page-header__title">Tasks</h1>
+          <p class="momentum-page-header__subtitle">Everything on your plate, across every day.</p>
+        </div>
+        <button class="momentum-btn momentum-btn--primary" type="button" id="addTaskBtn">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Add Task
+        </button>
+      </div>
+
+      <section class="momentum-card momentum-tasks" aria-labelledby="tasksHeading">
+        <div class="momentum-card__header">
+          <h2 class="momentum-card__title" id="tasksHeading" style="display:none;">Tasks</h2>
+          <div class="momentum-filter-tabs" role="group" aria-label="Filter by status">
+            <button type="button" class="momentum-filter-tabs__btn is-active">All</button>
+            <button type="button" class="momentum-filter-tabs__btn">Active</button>
+            <button type="button" class="momentum-filter-tabs__btn">Completed</button>
+          </div>
+          <div class="momentum-tasks__controls">
+            <div class="momentum-search">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M20 20L16 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <label for="taskFilter" class="sr-only">Search tasks</label>
+              <input type="text" id="taskFilter" class="momentum-search__input" placeholder="Search tasks">
+            </div>
+          </div>
+        </div>
+
+        <ul class="momentum-task-list" id="taskList">
+
+          <li class="momentum-task-card" data-priority="high">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="false" aria-label="Mark task complete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Finish Django models for Tasks app</p>
+              <p class="momentum-task-card__desc">Define Task, Category and Priority models with relations.</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--high">High</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Today, 9:30 AM
+                </span>
+                <span class="momentum-task-card__category">Backend</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="momentum-task-card" data-priority="medium">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="false" aria-label="Mark task complete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Review pull request from teammate</p>
+              <p class="momentum-task-card__desc">Check auth middleware changes before merge.</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--medium">Medium</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Today, 1:00 PM
+                </span>
+                <span class="momentum-task-card__category">Work</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="momentum-task-card" data-priority="low">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="false" aria-label="Mark task complete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Water the plants</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--low">Low</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Today, 6:00 PM
+                </span>
+                <span class="momentum-task-card__category">Home</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="momentum-task-card" data-priority="high">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="false" aria-label="Mark task complete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Prepare Theory of Languages notes</p>
+              <p class="momentum-task-card__desc">Go over pushdown automata examples.</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--high">High</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Tomorrow, 8:30 PM
+                </span>
+                <span class="momentum-task-card__category">University</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="momentum-task-card is-completed" data-priority="medium">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="true" aria-label="Mark task incomplete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Morning walk</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--medium">Medium</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Today, 7:00 AM
+                </span>
+                <span class="momentum-task-card__category">Health</span>
+              </div>
+            </div>
+          </li>
+
+          <li class="momentum-task-card is-completed" data-priority="low">
+            <button class="momentum-task-card__check" type="button" role="checkbox" aria-checked="true" aria-label="Mark task incomplete">
+              <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <div class="momentum-task-card__body">
+              <p class="momentum-task-card__title">Pay internet bill</p>
+              <div class="momentum-task-card__meta">
+                <span class="momentum-tag momentum-tag--low">Low</span>
+                <span class="momentum-task-card__due">
+                  <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Yesterday
+                </span>
+                <span class="momentum-task-card__category">Finance</span>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'dashbord/js/app.js' %}"></script>
+</body>
+</html>

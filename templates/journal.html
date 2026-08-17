@@ -1,0 +1,217 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum — Journal</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'dashbord/img/favicon.svg' %}"
+    />
+    <link rel="stylesheet" href="{% static 'dashbord/css/style.css' %}" />
+  </head>
+  <body>
+    <div class="momentum-app">
+      <!-- ============================================================
+       SIDEBAR
+  ============================================================ -->
+      {% include 'sidebar.html' %}
+
+      <!-- ============================================================
+       MAIN
+  ============================================================ -->
+      <div class="momentum-main">
+        <!-- TOP BAR -->
+        <header class="momentum-topbar">
+          <div class="momentum-topbar__left">
+            <button
+              class="momentum-topbar__menu"
+              id="sidebarOpen"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="sidebar"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3.5 6.5H20.5M3.5 12H20.5M3.5 17.5H20.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <div class="momentum-topbar__date">
+              <span id="todayDate">Monday, August 17</span>
+            </div>
+          </div>
+          <div class="momentum-topbar__right">
+            <button class="momentum-icon-btn" aria-label="Search">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="6.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  fill="none"
+                />
+                <path
+                  d="M20 20L16 16"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <button class="momentum-icon-btn" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path
+                  d="M6 10.5C6 7 8.7 4.5 12 4.5C15.3 4.5 18 7 18 10.5C18 15 19.5 16.2 19.5 16.2H4.5C4.5 16.2 6 15 6 10.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                  fill="none"
+                />
+                <path
+                  d="M10 19.2C10.3 19.9 11.1 20.4 12 20.4C12.9 20.4 13.7 19.9 14 19.2"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span class="momentum-icon-btn__dot" aria-hidden="true"></span>
+            </button>
+            <a
+              href="#"
+              class="momentum-topbar__avatar"
+              aria-label="Your profile"
+              >S</a
+            >
+          </div>
+        </header>
+
+        <div class="momentum-content">
+          <div class="momentum-page-header">
+            <div>
+              <h1 class="momentum-page-header__title">Journal</h1>
+              <p class="momentum-page-header__subtitle">
+                Your daily reflections, in one place.
+              </p>
+            </div>
+          </div>
+
+          <section
+            class="momentum-card momentum-note"
+            aria-labelledby="newEntryHeading"
+            style="margin-bottom: 20px"
+          >
+            <h2 class="momentum-card__title" id="newEntryHeading">
+              Today's Reflection
+            </h2>
+            <label for="reflectionText" class="sr-only"
+              >What happened today?</label
+            >
+            <textarea
+              id="reflectionText"
+              class="momentum-note__textarea"
+              rows="4"
+              placeholder="What happened today?"
+            ></textarea>
+            <button
+              type="button"
+              class="momentum-btn momentum-btn--secondary momentum-note__save"
+              id="saveNoteBtn"
+            >
+              Add note
+            </button>
+          </section>
+
+          <section class="momentum-card" aria-labelledby="entriesHeading">
+            <div class="momentum-card__header">
+              <h2 class="momentum-card__title" id="entriesHeading">
+                Past Entries
+              </h2>
+            </div>
+
+            <div>
+              <div class="momentum-journal-entry">
+                <div class="momentum-journal-entry__header">
+                  <span class="momentum-journal-entry__date"
+                    >Sunday, August 16</span
+                  >
+                  <span class="momentum-journal-entry__mood" title="Good"
+                    >🙂</span
+                  >
+                </div>
+                <p class="momentum-journal-entry__text">
+                  Spent most of the day going through Git branching exercises.
+                  Felt a bit slow at first but merge conflicts finally clicked.
+                  Took a short walk in the evening to clear my head before
+                  starting SQL tomorrow.
+                </p>
+              </div>
+
+              <div class="momentum-journal-entry">
+                <div class="momentum-journal-entry__header">
+                  <span class="momentum-journal-entry__date"
+                    >Saturday, August 15</span
+                  >
+                  <span class="momentum-journal-entry__mood" title="Great"
+                    >😄</span
+                  >
+                </div>
+                <p class="momentum-journal-entry__text">
+                  Finished the Bingo project's last bug. German lesson in the
+                  afternoon went well — could follow most of the listening
+                  exercise without subtitles for the first time.
+                </p>
+              </div>
+
+              <div class="momentum-journal-entry">
+                <div class="momentum-journal-entry__header">
+                  <span class="momentum-journal-entry__date"
+                    >Friday, August 14</span
+                  >
+                  <span class="momentum-journal-entry__mood" title="Okay"
+                    >😐</span
+                  >
+                </div>
+                <p class="momentum-journal-entry__text">
+                  Long day at university. Automata theory lecture ran over and I
+                  didn't get to the roadmap tasks I'd planned. Tomorrow I'll
+                  block off a fixed study window instead of leaving it
+                  open-ended.
+                </p>
+              </div>
+
+              <div class="momentum-journal-entry">
+                <div class="momentum-journal-entry__header">
+                  <span class="momentum-journal-entry__date"
+                    >Thursday, August 13</span
+                  >
+                  <span class="momentum-journal-entry__mood" title="Good"
+                    >🙂</span
+                  >
+                </div>
+                <p class="momentum-journal-entry__text">
+                  Pushed through the Git rebase section. Still not fully
+                  comfortable with interactive rebase, want to redo the
+                  exercises once more before moving to SQL.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'dashbord/js/app.js' %}"></script>
+  </body>
+</html>
