@@ -1,224 +1,408 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Momentum — Goals</title>
-<link rel="icon" type="image/svg+xml" href="{% static 'dashbord/img/favicon.svg' %}">
-<link rel="stylesheet" href="{% static 'dashbord/css/style.css' %}">
-</head>
-<body>
-
-<div class="momentum-app">
-
-  <!-- ============================================================
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentum — Goals</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'dashbord/img/favicon.svg' %}"
+    />
+    <link rel="stylesheet" href="{% static 'dashbord/css/style.css' %}" />
+  </head>
+  <body>
+    <div class="momentum-app">
+      <!-- ============================================================
        SIDEBAR
   ============================================================ -->
-  <aside class="momentum-sidebar" id="sidebar">
-    <div class="momentum-sidebar__top">
-      <a href="#" class="momentum-sidebar__logo" aria-label="Momentum home">
-        <span class="momentum-sidebar__logo-mark">
-          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" class="momentum-sidebar__logo-bg"/><path d="M9 21V11.6L16 18.2L23 11.6V21" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="momentum-sidebar__logo-text">Momentum</span>
-      </a>
-      <button class="momentum-sidebar__close" id="sidebarClose" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
+      <aside class="momentum-sidebar" id="sidebar">
+        <div class="momentum-sidebar__top">
+          <a href="#" class="momentum-sidebar__logo" aria-label="Momentum home">
+            <span class="momentum-sidebar__logo-mark">
+              <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect
+                  width="32"
+                  height="32"
+                  rx="9"
+                  class="momentum-sidebar__logo-bg"
+                />
+                <path
+                  d="M9 21V11.6L16 18.2L23 11.6V21"
+                  stroke="white"
+                  stroke-width="2.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span class="momentum-sidebar__logo-text">Momentum</span>
+          </a>
+          <button
+            class="momentum-sidebar__close"
+            id="sidebarClose"
+            aria-label="Close menu"
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M6 6L18 18M18 6L6 18"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
 
-    <nav class="momentum-nav" aria-label="Primary">
-      <ul class="momentum-nav__list">
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:dashboard' %}" class="momentum-nav__link" aria-current="page">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 12L12 4L20 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.5V20H18V10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:tasks' %}" class="momentum-nav__link">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><path d="M5 12.5L9.5 17L19 6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </span>
-            <span>Tasks</span>
-          </a>
-        </li>
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:journal' %}" class="momentum-nav__link">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><path d="M6 3.5H16.5L19 6V20.5H6V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M9 9H15M9 12.5H15M9 16H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </span>
-            <span>Journal</span>
-          </a>
-        </li>
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:habits' %}" class="momentum-nav__link">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 21C12 21 4.5 16.2 4.5 10.6C4.5 7.5 6.9 5.3 9.6 5.3C10.9 5.3 11.7 5.9 12 6.4C12.3 5.9 13.1 5.3 14.4 5.3C17.1 5.3 19.5 7.5 19.5 10.6C19.5 16.2 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/></svg>
-            </span>
-            <span>Habits</span>
-          </a>
-        </li>
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:goals' %}" class="momentum-nav__link is-active" aria-current="page">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="0.9" fill="currentColor"/></svg>
-            </span>
-            <span>Goals</span>
-          </a>
-        </li>
-        <li class="momentum-nav__item">
-          <a href="{% url 'dashbord:finance' %}" class="momentum-nav__link">
-            <span class="momentum-nav__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="19" height="19"><rect x="3.5" y="6" width="17" height="12.5" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M3.5 10H20.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 14H11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </span>
-            <span>Finance</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+        <nav class="momentum-nav" aria-label="Primary">
+          <ul class="momentum-nav__list">
+            <li class="momentum-nav__item">
+              <a
+                href="{% url 'dashbord:dashboard' %}"
+                class="momentum-nav__link"
+                aria-current="page"
+              >
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <path
+                      d="M4 12L12 4L20 12"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6 10.5V20H18V10.5"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="momentum-nav__item">
+              <a href="{% url 'dashbord:tasks' %}" class="momentum-nav__link">
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <path
+                      d="M5 12.5L9.5 17L19 6.5"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      fill="none"
+                    />
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="4"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li class="momentum-nav__item">
+              <a href="{% url 'dashbord:journal' %}" class="momentum-nav__link">
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <path
+                      d="M6 3.5H16.5L19 6V20.5H6V3.5Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                      fill="none"
+                    />
+                    <path
+                      d="M9 9H15M9 12.5H15M9 16H12.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+                <span>Journal</span>
+              </a>
+            </li>
+            <li class="momentum-nav__item">
+              <a href="{% url 'dashbord:habits' %}" class="momentum-nav__link">
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <path
+                      d="M12 21C12 21 4.5 16.2 4.5 10.6C4.5 7.5 6.9 5.3 9.6 5.3C10.9 5.3 11.7 5.9 12 6.4C12.3 5.9 13.1 5.3 14.4 5.3C17.1 5.3 19.5 7.5 19.5 10.6C19.5 16.2 12 21 12 21Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+                <span>Habits</span>
+              </a>
+            </li>
+            <li class="momentum-nav__item">
+              <a
+                href="{% url 'dashbord:goals' %}"
+                class="momentum-nav__link is-active"
+                aria-current="page"
+              >
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="8.2"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      fill="none"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="4.4"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      fill="none"
+                    />
+                    <circle cx="12" cy="12" r="0.9" fill="currentColor" />
+                  </svg>
+                </span>
+                <span>Goals</span>
+              </a>
+            </li>
+            <li class="momentum-nav__item">
+              <a href="{% url 'dashbord:finance' %}" class="momentum-nav__link">
+                <span class="momentum-nav__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="19" height="19">
+                    <rect
+                      x="3.5"
+                      y="6"
+                      width="17"
+                      height="12.5"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      fill="none"
+                    />
+                    <path
+                      d="M3.5 10H20.5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                    <path
+                      d="M7 14H11"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+                <span>Finance</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-    <div class="momentum-sidebar__bottom">
-      <a href="{% url 'dashbord:settings' %}" class="momentum-nav__link">
-        <span class="momentum-nav__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M19.4 13.6c.1-.5.1-1.1 0-1.6l1.6-1.3-1.6-2.7-2 .6c-.4-.4-.9-.7-1.4-.9l-.3-2H10.3l-.3 2c-.5.2-1 .5-1.4.9l-2-.6-1.6 2.7 1.6 1.3c-.1.5-.1 1.1 0 1.6l-1.6 1.3 1.6 2.7 2-.6c.4.4.9.7 1.4.9l.3 2h3.4l.3-2c.5-.2 1-.5 1.4-.9l2 .6 1.6-2.7-1.6-1.3Z" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
-        </span>
-        <span>Settings</span>
-      </a>
-      <a href="#" class="momentum-profile">
-        <span class="momentum-profile__avatar" aria-hidden="true">S</span>
-        <span class="momentum-profile__meta">
-          <span class="momentum-profile__name">Seli</span>
-          <span class="momentum-profile__role">Free plan</span>
-        </span>
-      </a>
-    </div>
-  </aside>
+        <div class="momentum-sidebar__bottom">
+          <a href="{% url 'dashbord:settings' %}" class="momentum-nav__link">
+            <span class="momentum-nav__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="19" height="19">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="2.8"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  fill="none"
+                />
+                <path
+                  d="M19.4 13.6c.1-.5.1-1.1 0-1.6l1.6-1.3-1.6-2.7-2 .6c-.4-.4-.9-.7-1.4-.9l-.3-2H10.3l-.3 2c-.5.2-1 .5-1.4.9l-2-.6-1.6 2.7 1.6 1.3c-.1.5-.1 1.1 0 1.6l-1.6 1.3 1.6 2.7 2-.6c.4.4.9.7 1.4.9l.3 2h3.4l.3-2c.5-.2 1-.5 1.4-.9l2 .6 1.6-2.7-1.6-1.3Z"
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  fill="none"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span>Settings</span>
+          </a>
+          <a href="#" class="momentum-profile">
+            <span class="momentum-profile__avatar" aria-hidden="true">S</span>
+            <span class="momentum-profile__meta">
+              <span class="momentum-profile__name">{{user.username}}</span>
+              <span class="momentum-profile__role">Free plan</span>
+            </span>
+          </a>
+        </div>
+      </aside>
 
-  <div class="momentum-sidebar__scrim" id="sidebarScrim"></div>
+      <div class="momentum-sidebar__scrim" id="sidebarScrim"></div>
 
-  <!-- ============================================================
+      <!-- ============================================================
        MAIN
   ============================================================ -->
-  <div class="momentum-main">
+      <div class="momentum-main">
+        <!-- TOP BAR -->
+        <header class="momentum-topbar">
+          <div class="momentum-topbar__left">
+            <button
+              class="momentum-topbar__menu"
+              id="sidebarOpen"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="sidebar"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3.5 6.5H20.5M3.5 12H20.5M3.5 17.5H20.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <div class="momentum-topbar__date">
+              <span id="todayDate">Monday, August 17</span>
+            </div>
+          </div>
+          <div class="momentum-topbar__right">
+            <button class="momentum-icon-btn" aria-label="Search">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="6.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  fill="none"
+                />
+                <path
+                  d="M20 20L16 16"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <button class="momentum-icon-btn" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path
+                  d="M6 10.5C6 7 8.7 4.5 12 4.5C15.3 4.5 18 7 18 10.5C18 15 19.5 16.2 19.5 16.2H4.5C4.5 16.2 6 15 6 10.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                  fill="none"
+                />
+                <path
+                  d="M10 19.2C10.3 19.9 11.1 20.4 12 20.4C12.9 20.4 13.7 19.9 14 19.2"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span class="momentum-icon-btn__dot" aria-hidden="true"></span>
+            </button>
+            <a
+              href="#"
+              class="momentum-topbar__avatar"
+              aria-label="Your profile"
+              >{{user.username.0}}</a
+            >
+          </div>
+        </header>
 
-    <!-- TOP BAR -->
-    <header class="momentum-topbar">
-      <div class="momentum-topbar__left">
-        <button class="momentum-topbar__menu" id="sidebarOpen" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3.5 6.5H20.5M3.5 12H20.5M3.5 17.5H20.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
-        <div class="momentum-topbar__date">
-          <span id="todayDate">Monday, August 17</span>
+        <div class="momentum-content">
+          <div class="momentum-page-header">
+            <div>
+              <h1 class="momentum-page-header__title">Goals</h1>
+              <p class="momentum-page-header__subtitle">
+                The bigger picture behind the daily tasks.
+              </p>
+            </div>
+            <button
+              class="momentum-btn momentum-btn--primary"
+              type="button"
+              id="addGoalBtn"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="15"
+                height="15"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 5V19M5 12H19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Add Goal
+            </button>
+          </div>
+
+          <section class="momentum-card" aria-labelledby="goalsHeading">
+            <h2
+              class="momentum-card__title"
+              id="goalsHeading"
+              style="display: none"
+            >
+              Goals
+            </h2>
+            <ul class="momentum-goal-list">
+              {% for goal in goals%}
+              <li class="momentum-goal">
+                <svg
+                  class="momentum-goal__ring"
+                  viewBox="0 0 44 44"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="22"
+                    cy="22"
+                    r="18"
+                    class="momentum-goal__ring-track"
+                  />
+                  <circle
+                    cx="22"
+                    cy="22"
+                    r="18"
+                    class="momentum-goal__ring-fill"
+                    style="--progress: {{goal.progress}}"
+                  />
+                </svg>
+                <div class="momentum-goal__body">
+                  <p class="momentum-goal__title">{{goal.title}}</p>
+                  <div class="momentum-progress-bar">
+                    <div
+                      class="momentum-progress-bar__fill"
+                      style="width: {{goal.progress}}%"
+                    ></div>
+                  </div>
+                </div>
+                <span class="momentum-goal__percent">{{goal.progress}}%</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </section>
         </div>
       </div>
-      <div class="momentum-topbar__right">
-        <button class="momentum-icon-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M20 20L16 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-        </button>
-        <button class="momentum-icon-btn" aria-label="Notifications">
-          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 10.5C6 7 8.7 4.5 12 4.5C15.3 4.5 18 7 18 10.5C18 15 19.5 16.2 19.5 16.2H4.5C4.5 16.2 6 15 6 10.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M10 19.2C10.3 19.9 11.1 20.4 12 20.4C12.9 20.4 13.7 19.9 14 19.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <span class="momentum-icon-btn__dot" aria-hidden="true"></span>
-        </button>
-        <a href="#" class="momentum-topbar__avatar" aria-label="Your profile">S</a>
-      </div>
-    </header>
-
-    <div class="momentum-content">
-      <div class="momentum-page-header">
-        <div>
-          <h1 class="momentum-page-header__title">Goals</h1>
-          <p class="momentum-page-header__subtitle">The bigger picture behind the daily tasks.</p>
-        </div>
-        <button class="momentum-btn momentum-btn--primary" type="button" id="addGoalBtn">
-          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Add Goal
-        </button>
-      </div>
-
-      <section class="momentum-card" aria-labelledby="goalsHeading">
-        <h2 class="momentum-card__title" id="goalsHeading" style="display:none;">Goals</h2>
-        <ul class="momentum-goal-list">
-
-          <li class="momentum-goal">
-            <svg class="momentum-goal__ring" viewBox="0 0 44 44" aria-hidden="true">
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-track"/>
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-fill" style="--progress: 72;"/>
-            </svg>
-            <div class="momentum-goal__body">
-              <p class="momentum-goal__title">Backend Developer</p>
-              <div class="momentum-progress-bar">
-                <div class="momentum-progress-bar__fill" style="width: 72%;"></div>
-              </div>
-            </div>
-            <span class="momentum-goal__percent">72%</span>
-          </li>
-
-          <li class="momentum-goal">
-            <svg class="momentum-goal__ring" viewBox="0 0 44 44" aria-hidden="true">
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-track"/>
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-fill" style="--progress: 48;"/>
-            </svg>
-            <div class="momentum-goal__body">
-              <p class="momentum-goal__title">Build Momentum</p>
-              <div class="momentum-progress-bar">
-                <div class="momentum-progress-bar__fill" style="width: 48%;"></div>
-              </div>
-            </div>
-            <span class="momentum-goal__percent">48%</span>
-          </li>
-
-          <li class="momentum-goal">
-            <svg class="momentum-goal__ring" viewBox="0 0 44 44" aria-hidden="true">
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-track"/>
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-fill" style="--progress: 30;"/>
-            </svg>
-            <div class="momentum-goal__body">
-              <p class="momentum-goal__title">Learn German (A2)</p>
-              <div class="momentum-progress-bar">
-                <div class="momentum-progress-bar__fill" style="width: 30%;"></div>
-              </div>
-            </div>
-            <span class="momentum-goal__percent">30%</span>
-          </li>
-
-          <li class="momentum-goal">
-            <svg class="momentum-goal__ring" viewBox="0 0 44 44" aria-hidden="true">
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-track"/>
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-fill" style="--progress: 85;"/>
-            </svg>
-            <div class="momentum-goal__body">
-              <p class="momentum-goal__title">Finish Git roadmap</p>
-              <div class="momentum-progress-bar">
-                <div class="momentum-progress-bar__fill" style="width: 85%;"></div>
-              </div>
-            </div>
-            <span class="momentum-goal__percent">85%</span>
-          </li>
-
-          <li class="momentum-goal">
-            <svg class="momentum-goal__ring" viewBox="0 0 44 44" aria-hidden="true">
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-track"/>
-              <circle cx="22" cy="22" r="18" class="momentum-goal__ring-fill" style="--progress: 10;"/>
-            </svg>
-            <div class="momentum-goal__body">
-              <p class="momentum-goal__title">Start SQL course</p>
-              <div class="momentum-progress-bar">
-                <div class="momentum-progress-bar__fill" style="width: 10%;"></div>
-              </div>
-            </div>
-            <span class="momentum-goal__percent">10%</span>
-          </li>
-
-        </ul>
-      </section>
     </div>
-  </div>
-</div>
 
-<script src="{% static 'dashbord/js/app.js' %}"></script>
-</body>
+    <script src="{% static 'dashbord/js/app.js' %}"></script>
+  </body>
 </html>

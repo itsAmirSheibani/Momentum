@@ -1,14 +1,36 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.utils import timezone
 from django.db.models import Sum
 from .models import Task, Goal, MoodEntry, Reflection, Habit, Transaction
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from .forms import ReflectionForm
 
 
 @login_required
 def dashboard(request):
+    today = timezone.localdate()
+
+    if request.method == 'POST':
+        form = ReflectionForm(request.POST)
+        if form.is_valid():
+            print('form laljflfw')
+            Reflection.objects.update_or_create(
+                owner=request.user,
+                date=today,
+                defaults={
+                    "content": form.cleaned_data["content"]
+                }
+            )
+            
+            return redirect('dashbord:dashboard')
+
+        else:
+            return render('dashboard.html')
+    form = ReflectionForm()
+    
 
     today = timezone.localdate()
     tasks_today = Task.objects.filter(owner=request.user, due_date=today)
@@ -35,12 +57,13 @@ def dashboard(request):
         "stats": {
             "completed": tasks_today.filter(is_completed=True).count(),
             "remaining": tasks_today.filter(is_completed=False).count(),
-            "finance": {"income": income, "expenses": expenses, "balance": income - expenses},
-            "transactions": month_transactions,
         },
+        "finance": {"income": income, "expenses": expenses, "balance": income - expenses},
+        "transactions": month_transactions,
         "goals": Goal.objects.filter(owner=request.user, is_archived=False)[:3],
+        'form': form
     }
-    return render(request, "dashboard.html", context)
+    return render(request, "dashboard.html", context,)
 
 
 @login_required
@@ -104,6 +127,6 @@ def settings(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # keeps the user logged in"""
-    """ {"password_form": form}"""
+            update_session_auth_hash(request, user),{"password_form": form}"""
+
     return render(request, "settings.html")

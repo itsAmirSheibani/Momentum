@@ -18,15 +18,14 @@
       <section class="auth-panel auth-panel--form">
         <div class="form-wrap">
           <a href="/" class="brand">
-    <span class="brand-mark">
-        <img
-            src="{% static 'dashbord/img/favicon.svg' %}"
-            alt="Momentum"
-        >
-    </span>
-
-    <span>Momentum</span>
-</a>
+            <span class="brand-mark">
+              <img
+                src="{% static 'dashbord/img/favicon.svg' %}"
+                alt="Momentum"
+              />
+            </span>
+            <span>Momentum</span>
+          </a>
           <div class="eyebrow">Life Management & Productivity</div>
           <h1>Build Your Momentum.</h1>
           <p class="subtitle">
@@ -34,34 +33,39 @@
             goals, and everyday progress in one calm place.
           </p>
 
-          <!--<div class="form-card">
+          <div class="form-card">
             {% if form.non_field_errors %}
-            <div class="form-errors">{{ form.non_field_errors }}</div>
+              <div class="form-errors">{{ form.non_field_errors }}</div>
             {% endif %}
 
             <form method="post" action="">
               {% csrf_token %}
 
+              <!-- Username -->
               <div class="field">
                 <label for="{{ form.username.id_for_label }}">Username</label>
-                {{ form.username }} {% if form.username.help_text %}
-                <div class="help-text">{{ form.username.help_text|safe }}</div>
-                {% endif %} {% if form.username.errors %}{{ form.username.errors
-                }}{% endif %}
+                {{ form.username }}
+                {% if form.username.help_text %}
+                  <div class="help-text">{{ form.username.help_text|safe }}</div>
+                {% endif %}
+                {% if form.username.errors %}
+                  <div class="field-errors">{{ form.username.errors }}</div>
+                {% endif %}
               </div>
 
+              <!-- Password + Show/Hide toggle -->
               <div class="field">
                 <label for="{{ form.password1.id_for_label }}">Password</label>
                 <div style="position: relative">
                   {{ form.password1 }}
                   <button
-                    type="button"
+                    type="submit"
                     class="link"
                     data-password-toggle="{{ form.password1.id_for_label }}"
                     style="
                       position: absolute;
                       right: 12px;
-                      top: 11px;
+                      top: 17px;
                       background: none;
                       border: 0;
                       cursor: pointer;
@@ -72,90 +76,22 @@
                   </button>
                 </div>
                 {% if form.password1.help_text %}
-                <div class="help-text">{{ form.password1.help_text|safe }}</div>
-                {% endif %} {% if form.password1.errors %}{{
-                form.password1.errors }}{% endif %}
+                  <div class="help-text">{{ form.password1.help_text|safe }}</div>
+                {% endif %}
+                {% if form.password1.errors %}
+                  <div class="field-errors">{{ form.password1.errors }}</div>
+                {% endif %}
               </div>
 
+              <!-- Confirm password + Show/Hide toggle -->
               <div class="field">
-                <label for="{{ form.password2.id_for_label }}"
-                  >Confirm password</label
-                >
-                {{ form.password2 }} {% if form.password2.errors %}{{
-                form.password2.errors }}{% endif %}
-              </div>
-
-              <button type="submit" class="btn">Create account</button>
-            </form>
-
-            <div class="bottom-note">
-              Already have an account?
-              <a href="{% url 'accounts:login' %}" class="link">Sign in</a>
-            </div>
-          </div>-->
-
-            <div class="form-card">
-            <form method="post" action="{% url 'accounts:login' %}">
-              {% csrf_token %}
-              <!-- username -->
-              <div class="field">
-                <label for="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  class="form-control"
-                  placeholder="Enter username"
-                  aria-describedby="usernameHelp"
-                  required
-                />
-                <small id="usernameHelp" class="form-text text-muted">
-                  
-                </small>
-              </div>
-
-              <!-- Password with show/hide toggle -->
-              <div class="field">
-                <label for="password">Password</label>
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
                 <div style="position: relative">
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-                  />
+                  {{ form.password2 }}
                   <button
                     type="button"
                     class="link"
-                    data-password-toggle="password"
-                    style="
-                      position: absolute;
-                      right: 12px;
-                      top: 17px;
-                      background: none;
-                      border: 0;
-                      cursor: pointer;
-                    "
-                    aria-label="Show password"
-                  >
-                    Show
-                  </button>
-                  <label for="password2">Confirm Password</label>
-                <div style="position: relative">
-                  <input
-                    type="password2"
-                    id="password2"
-                    name="password2"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    class="link"
-                    data-password-toggle="password2"
+                    data-password-toggle="{{ form.password2.id_for_label }}"
                     style="
                       position: absolute;
                       right: 12px;
@@ -169,16 +105,24 @@
                     Show
                   </button>
                 </div>
+                {% if form.password2.help_text %}
+                  <div class="help-text">{{ form.password2.help_text|safe }}</div>
+                {% endif %}
+                {% if form.password2.errors %}
+                  <div class="field-errors">{{ form.password2.errors }}</div>
+                {% endif %}
               </div>
-              <small id="usernameHelp" class="form-text text-muted">
-                  by signing up you agree to our terms
-                </small>
 
-              <!-- Remember me -->
-             
+              <small class="form-text text-muted">
+                By signing up you agree to our terms
+              </small>
+
               <button type="submit" class="btn btn-primary">Create Account</button>
             </form>
-             
+            <div class="bottom-note">
+              Already have an account?
+              <a href="{% url 'accounts:login' %}" class="link">Sign in</a>
+            </div>
           </div>
 
           <div class="auth-footer">

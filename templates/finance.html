@@ -236,9 +236,9 @@
             <span>Settings</span>
           </a>
           <a href="#" class="momentum-profile">
-            <span class="momentum-profile__avatar" aria-hidden="true">S</span>
+            <span class="momentum-profile__avatar" aria-hidden="true">{{user.username.0}}</span>
             <span class="momentum-profile__meta">
-              <span class="momentum-profile__name">Seli</span>
+              <span class="momentum-profile__name">{{user.username}}</span>
               <span class="momentum-profile__role">Free plan</span>
             </span>
           </a>
@@ -362,7 +362,7 @@
                 class="momentum-finance-summary__value"
                 style="color: var(--mtm-success)"
               >
-                $2,400
+                ${{finance.income}}
               </p>
             </div>
             <div class="momentum-finance-summary__card">
@@ -371,12 +371,12 @@
                 class="momentum-finance-summary__value"
                 style="color: var(--mtm-danger)"
               >
-                $1,160
+                ${{finance.expenses}}
               </p>
             </div>
             <div class="momentum-finance-summary__card">
               <p class="momentum-finance-summary__label">Balance</p>
-              <p class="momentum-finance-summary__value">$1,240</p>
+              <p class="momentum-finance-summary__value">${{finance.balance}}</p>
             </div>
           </div>
 
@@ -406,9 +406,10 @@
             </div>
 
             <div class="momentum-transaction-list">
+              {% for trans in transactions %}
               <div class="momentum-transaction">
                 <span
-                  class="momentum-transaction__icon momentum-transaction__icon--income"
+                  class="momentum-transaction__icon momentum-transaction__icon--{{trans.type}}"
                   aria-hidden="true"
                 >
                   <svg viewBox="0 0 24 24" width="16" height="16">
@@ -423,140 +424,16 @@
                 </span>
                 <div class="momentum-transaction__body">
                   <p class="momentum-transaction__title">
-                    Freelance project payment
+                    {{trans.description}}
                   </p>
-                  <p class="momentum-transaction__date">August 14</p>
+                  <p class="momentum-transaction__date">{{trans.date}}</p>
                 </div>
                 <span
-                  class="momentum-transaction__amount momentum-transaction__amount--income"
-                  >+$600</span
+                  class="momentum-transaction__amount momentum-transaction__amount--{{trans.type}}"
+                  >{{trans.sign}}{{trans.amount}}</span
                 >
               </div>
-
-              <div class="momentum-transaction">
-                <span
-                  class="momentum-transaction__icon momentum-transaction__icon--expense"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      d="M12 5V19M12 19L6 13M12 19L18 13"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class="momentum-transaction__body">
-                  <p class="momentum-transaction__title">Groceries</p>
-                  <p class="momentum-transaction__date">August 13</p>
-                </div>
-                <span
-                  class="momentum-transaction__amount momentum-transaction__amount--expense"
-                  >−$45</span
-                >
-              </div>
-
-              <div class="momentum-transaction">
-                <span
-                  class="momentum-transaction__icon momentum-transaction__icon--expense"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      d="M12 5V19M12 19L6 13M12 19L18 13"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class="momentum-transaction__body">
-                  <p class="momentum-transaction__title">Internet bill</p>
-                  <p class="momentum-transaction__date">August 12</p>
-                </div>
-                <span
-                  class="momentum-transaction__amount momentum-transaction__amount--expense"
-                  >−$20</span
-                >
-              </div>
-
-              <div class="momentum-transaction">
-                <span
-                  class="momentum-transaction__icon momentum-transaction__icon--income"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      d="M12 19V5M12 5L6 11M12 5L18 11"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class="momentum-transaction__body">
-                  <p class="momentum-transaction__title">Monthly allowance</p>
-                  <p class="momentum-transaction__date">August 1</p>
-                </div>
-                <span
-                  class="momentum-transaction__amount momentum-transaction__amount--income"
-                  >+$1,800</span
-                >
-              </div>
-
-              <div class="momentum-transaction">
-                <span
-                  class="momentum-transaction__icon momentum-transaction__icon--expense"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      d="M12 5V19M12 19L6 13M12 19L18 13"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class="momentum-transaction__body">
-                  <p class="momentum-transaction__title">University supplies</p>
-                  <p class="momentum-transaction__date">August 4</p>
-                </div>
-                <span
-                  class="momentum-transaction__amount momentum-transaction__amount--expense"
-                  >−$35</span
-                >
-              </div>
-
-              <div class="momentum-transaction">
-                <span
-                  class="momentum-transaction__icon momentum-transaction__icon--expense"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path
-                      d="M12 5V19M12 19L6 13M12 19L18 13"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class="momentum-transaction__body">
-                  <p class="momentum-transaction__title">German course fee</p>
-                  <p class="momentum-transaction__date">August 2</p>
-                </div>
-                <span
-                  class="momentum-transaction__amount momentum-transaction__amount--expense"
-                  >−$60</span
-                >
-              </div>
+              {% endfor %}
             </div>
           </section>
         </div>

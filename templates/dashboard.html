@@ -279,42 +279,6 @@
             </div>
           </div>
           <div class="momentum-topbar__right">
-            <button class="momentum-icon-btn" aria-label="Search">
-              <svg viewBox="0 0 24 24" width="18" height="18">
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="6.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  fill="none"
-                />
-                <path
-                  d="M20 20L16 16"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </button>
-            <button class="momentum-icon-btn" aria-label="Notifications">
-              <svg viewBox="0 0 24 24" width="18" height="18">
-                <path
-                  d="M6 10.5C6 7 8.7 4.5 12 4.5C15.3 4.5 18 7 18 10.5C18 15 19.5 16.2 19.5 16.2H4.5C4.5 16.2 6 15 6 10.5Z"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linejoin="round"
-                  fill="none"
-                />
-                <path
-                  d="M10 19.2C10.3 19.9 11.1 20.4 12 20.4C12.9 20.4 13.7 19.9 14 19.2"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                />
-              </svg>
-              <span class="momentum-icon-btn__dot" aria-hidden="true"></span>
-            </button>
             <a
               href="#"
               class="momentum-topbar__avatar"
@@ -346,7 +310,9 @@
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Energy</span>
-                <span class="momentum-hero__stat-value">{{today_energy}} / 10</span>
+                <span class="momentum-hero__stat-value"
+                  >{{today_energy}} / 10</span
+                >
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Progress</span>
@@ -425,7 +391,10 @@
 
                 <ul class="momentum-task-list" id="taskList">
                   {% for task in tasks_today %}
-                  <li class="momentum-task-card" data-priority={{task.priority}}>
+                  <li
+                    class="momentum-task-card"
+                    data-priority="{{task.priority}}"
+                  >
                     <button
                       class="momentum-task-card__check"
                       type="button"
@@ -455,7 +424,8 @@
                         {{task.description}}
                       </p>
                       <div class="momentum-task-card__meta">
-                        <span class="momentum-tag momentum-tag--{{task.priority}}"
+                        <span
+                          class="momentum-tag momentum-tag--{{task.priority}}"
                           >{{task.priority}}</span
                         >
                         <span class="momentum-task-card__due">
@@ -502,17 +472,16 @@
                 <ul class="momentum-timeline">
                   {% for task in tasks_today %}
                   <li class="momentum-timeline__item">
-                    <span class="momentum-timeline__time">{{task.due_time}}</span>
+                    <span class="momentum-timeline__time"
+                      >{{task.due_time}}</span
+                    >
                     <span
                       class="momentum-timeline__dot momentum-timeline__dot--{{task.priority}}"
                       aria-hidden="true"
                     ></span>
-                    <span class="momentum-timeline__label"
-                      >{{task.title}}</span
-                    >
+                    <span class="momentum-timeline__label">{{task.title}}</span>
                   </li>
                   {% endfor %}
-                  
                 </ul>
               </section>
             </div>
@@ -527,57 +496,54 @@
                 <h2 class="momentum-card__title" id="moodHeading">
                   How are you feeling today?
                 </h2>
+
                 <div
                   class="momentum-mood__options"
                   role="group"
                   aria-label="Select today's mood"
                 >
                   <button
-                    type="button"
+                    type="submit"
+                    name="mood"
                     class="momentum-mood__option"
-                    data-mood="great"
-                    aria-pressed="false"
-                    aria-label="Great"
+                    value="great"
                   >
                     😄
                   </button>
                   <button
-                    type="button"
+                    type="submit"
+                    name="mood"
                     class="momentum-mood__option"
-                    data-mood="good"
-                    aria-pressed="true"
-                    aria-label="Good"
+                    value="good"
                   >
                     🙂
                   </button>
                   <button
-                    type="button"
+                    type="submit"
+                    name="mood"
                     class="momentum-mood__option"
-                    data-mood="okay"
-                    aria-pressed="false"
-                    aria-label="Okay"
+                    value="okay"
                   >
                     😐
                   </button>
                   <button
-                    type="button"
+                    type="submit"
+                    name="mood"
                     class="momentum-mood__option"
-                    data-mood="low"
-                    aria-pressed="false"
-                    aria-label="Low"
+                    value="low"
                   >
                     😔
                   </button>
                   <button
-                    type="button"
+                    type="submit"
+                    name="mood"
                     class="momentum-mood__option"
-                    data-mood="bad"
-                    aria-pressed="false"
-                    aria-label="Bad"
+                    value="bad"
                   >
                     😞
                   </button>
                 </div>
+
                 <div class="momentum-energy">
                   <div class="momentum-energy__label-row">
                     <label for="energyRange">Energy level</label>
@@ -591,7 +557,7 @@
                     class="momentum-energy__range"
                     min="1"
                     max="10"
-                    value={{today_energy}}
+                    value="{{today_energy}}"
                   />
                 </div>
               </section>
@@ -607,19 +573,23 @@
                 <label for="reflectionText" class="sr-only"
                   >What happened today?</label
                 >
-                <textarea
-                  id="reflectionText"
-                  class="momentum-note__textarea"
-                  rows="4"
-                  placeholder="What happened today?"
-                ></textarea>
-                <button
-                  type="button"
-                  class="momentum-btn momentum-btn--secondary momentum-note__save"
-                  id="saveNoteBtn"
-                >
-                  Add note
-                </button>
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <textarea
+                    name="content"
+                    id="reflectionText"
+                    class="momentum-note__textarea"
+                    rows="4"
+                    placeholder="What happened today?"
+                  ></textarea>
+                  <button
+                    type="submit"
+                    class="momentum-btn momentum-btn--secondary momentum-note__save"
+                    id="saveNoteBtn"
+                  >
+                    Add note
+                  </button>
+                </form>
               </section>
 
               <!-- QUICK STATS -->
@@ -629,11 +599,15 @@
                 </h2>
                 <div class="momentum-stats">
                   <div class="momentum-stats__item">
-                    <span class="momentum-stats__value">{{stats.completed}}</span>
+                    <span class="momentum-stats__value"
+                      >{{stats.completed}}</span
+                    >
                     <span class="momentum-stats__label">Completed</span>
                   </div>
                   <div class="momentum-stats__item">
-                    <span class="momentum-stats__value">{{stats.remaining}}</span>
+                    <span class="momentum-stats__value"
+                      >{{stats.remaining}}</span
+                    >
                     <span class="momentum-stats__label">Remaining</span>
                   </div>
                   <div class="momentum-stats__item">
@@ -641,7 +615,9 @@
                     <span class="momentum-stats__label">Day streak</span>
                   </div>
                   <div class="momentum-stats__item">
-                    <span class="momentum-stats__value">{{finance.balance}}</span>
+                    <span class="momentum-stats__value"
+                      >{{finance.balance}}</span
+                    >
                     <span class="momentum-stats__label">This month</span>
                   </div>
                 </div>
@@ -679,13 +655,15 @@
                       <div class="momentum-progress-bar">
                         <div
                           class="momentum-progress-bar__fill"
-                          style="width: 72%"
+                          style="width: {{goal.progress}}%"
                         ></div>
                       </div>
                     </div>
-                    <span class="momentum-goal__percent">{{goal.progress}}%</span>
+                    <span class="momentum-goal__percent"
+                      >{{goal.progress}}%</span
+                    >
                   </li>
-                 {% endfor %}
+                  {% endfor %}
                 </ul>
               </section>
 
@@ -703,7 +681,7 @@
                     <dd
                       class="momentum-finance__value momentum-finance__value--positive"
                     >
-                      {{finanace.income}}
+                      {{finance.income}}
                     </dd>
                   </div>
                   <div class="momentum-finance__row">
@@ -711,14 +689,16 @@
                     <dd
                       class="momentum-finance__value momentum-finance__value--negative"
                     >
-                      $1,160
+                      {{finance.expenses}}
                     </dd>
                   </div>
                   <div
                     class="momentum-finance__row momentum-finance__row--total"
                   >
                     <dt>Balance</dt>
-                    <dd class="momentum-finance__value">${{finance.balance}}</dd>
+                    <dd class="momentum-finance__value">
+                      ${{finance.balance}}
+                    </dd>
                   </div>
                 </dl>
               </section>

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Task(models.Model):
 
     class Priority(models.TextChoices):
@@ -56,7 +57,7 @@ class Reflection(models.Model):
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE, related_name='reflections')
-    date = models.DateField()
+    date = models.DateField(blank=True,null=True)
     content = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -138,3 +139,5 @@ class Transaction(models.Model):
     def __str__(self):
         sign = "+" if self.type == self.Type.INCOME else "-"
         return f"{sign}{self.amount} — {self.description or self.type}"
+
+
