@@ -1,0 +1,3 @@
+requirements:
+
+Django==5.2.16
