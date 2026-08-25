@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-8(51$9@aid)rz6fq__ji_)c8$6@uh4hs&^a%=s^7fb+q4=k^$@
 DEBUG = True
 
 ALLOWED_HOSTS = ['momentum-8sk-firste.runflare.cloud',
-                 'www.momentum-8sk-firste.runflare.cloud']
+                 'www.momentum-8sk-firste.runflare.cloud',
+                 "127.0.0.1",]
 
 
 # Application definition

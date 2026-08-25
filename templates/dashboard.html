@@ -134,22 +134,7 @@
                 <span>Journal</span>
               </a>
             </li>
-            <li class="momentum-nav__item">
-              <a href="{% url 'dashbord:habits' %}" class="momentum-nav__link">
-                <span class="momentum-nav__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="19" height="19">
-                    <path
-                      d="M12 21C12 21 4.5 16.2 4.5 10.6C4.5 7.5 6.9 5.3 9.6 5.3C10.9 5.3 11.7 5.9 12 6.4C12.3 5.9 13.1 5.3 14.4 5.3C17.1 5.3 19.5 7.5 19.5 10.6C19.5 16.2 12 21 12 21Z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linejoin="round"
-                      fill="none"
-                    />
-                  </svg>
-                </span>
-                <span>Habits</span>
-              </a>
-            </li>
+            
             <li class="momentum-nav__item">
               <a href="{% url 'dashbord:goals' %}" class="momentum-nav__link">
                 <span class="momentum-nav__icon" aria-hidden="true">
@@ -366,98 +351,84 @@
                         placeholder="Filter tasks"
                       />
                     </div>
-                    <button
-                      class="momentum-btn momentum-btn--primary"
-                      type="button"
-                      id="addTaskBtn"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="15"
-                        height="15"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M12 5V19M5 12H19"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                        />
-                      </svg>
-                      Add Task
-                    </button>
+
+                    <div class="momentum-task-form">
+              <a
+                href="{% url 'dashbord:add_task' %}"
+                class="momentum-btn momentum-btn--primary"
+              >
+                Add Task
+                <svg
+                  viewBox="0 0 24 24"
+                  width="15"
+                  height="15"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 5V19M5 12H19"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
                   </div>
                 </div>
 
                 <ul class="momentum-task-list" id="taskList">
                   {% for task in tasks_today %}
+
                   <li
-                    class="momentum-task-card"
-                    data-priority="{{task.priority}}"
+                    class="momentum-task-card {% if task.is_completed %}is-completed{% endif %}"
+                    data-priority="{{ task.priority }}"
                   >
-                    <button
-                      class="momentum-task-card__check"
-                      type="button"
-                      role="checkbox"
-                      aria-checked="false"
-                      aria-label="Mark task complete"
+                    <form
+                      method="POST"
+                      action="{% url 'dashbord:toggle_task' task.id %}"
                     >
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="13"
-                        height="13"
-                        aria-hidden="true"
+                      {% csrf_token %}
+
+                      <button
+                        class="momentum-task-card__check"
+                        type="submit"
+                        role="checkbox"
+                        aria-checked="{% if task.is_completed %}true{% else %}false{% endif %}"
+                        aria-label="{% if task.is_completed %}Mark task incomplete{% else %}Mark task complete{% endif %}"
                       >
-                        <path
-                          d="M5 12.5L9.5 17L19 6.5"
-                          stroke="currentColor"
-                          stroke-width="2.4"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </button>
+                        {% if task.is_completed %} ✓ {% endif %}
+                      </button>
+                    </form>
+
                     <div class="momentum-task-card__body">
-                      <p class="momentum-task-card__title">{{task.title}}</p>
+                      <p class="momentum-task-card__title">{{ task.title }}</p>
+
                       <p class="momentum-task-card__desc">
-                        {{task.description}}
+                        {{ task.description|truncatechars:20 }}
                       </p>
+
                       <div class="momentum-task-card__meta">
                         <span
-                          class="momentum-tag momentum-tag--{{task.priority}}"
-                          >{{task.priority}}</span
+                          class="momentum-tag momentum-tag--{{ task.priority }}"
                         >
-                        <span class="momentum-task-card__due">
-                          <svg
-                            viewBox="0 0 24 24"
-                            width="13"
-                            height="13"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="8.2"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              fill="none"
-                            />
-                            <path
-                              d="M12 7.5V12L15 14"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                            />
-                          </svg>
-                          {{task.due_time}}
+                          {{ task.priority }}
                         </span>
-                        <span class="momentum-task-card__category"
-                          >{{task.category}}</span
-                        >
+
+                        <span class="momentum-task-card__due">
+                          {{ task.due_time }}
+                        </span>
+
+                        <span class="momentum-task-card__category">
+                          {{ task.category }}
+                        </span>
                       </div>
                     </div>
                   </li>
+
+                  {% empty %}
+
+                  <li>No tasks for today.</li>
+
                   {% endfor %}
                 </ul>
               </section>
@@ -573,23 +544,24 @@
                 <label for="reflectionText" class="sr-only"
                   >What happened today?</label
                 >
-                <form method="POST" action="">
-                  {% csrf_token %}
-                  <textarea
-                    name="content"
-                    id="reflectionText"
-                    class="momentum-note__textarea"
-                    rows="4"
-                    placeholder="What happened today?"
-                  ></textarea>
-                  <button
-                    type="submit"
-                    class="momentum-btn momentum-btn--secondary momentum-note__save"
-                    id="saveNoteBtn"
-                  >
-                    Add note
-                  </button>
-                </form>
+                <form method="POST">
+              {% csrf_token %}
+
+              <textarea
+                name="content"
+                id="reflectionText"
+                class="momentum-note__textarea"
+                rows="4"
+                placeholder="What happened today?"
+              ></textarea>
+
+              <button
+                type="submit"
+                class="momentum-btn momentum-btn--secondary momentum-note__save"
+              >
+                Add note
+              </button>
+            </form>
               </section>
 
               <!-- QUICK STATS -->
@@ -602,21 +574,21 @@
                     <span class="momentum-stats__value"
                       >{{stats.completed}}</span
                     >
-                    <span class="momentum-stats__label">Completed</span>
+                    <span class="momentum-stats__label">Completed Tasks</span>
                   </div>
                   <div class="momentum-stats__item">
                     <span class="momentum-stats__value"
                       >{{stats.remaining}}</span
                     >
-                    <span class="momentum-stats__label">Remaining</span>
+                    <span class="momentum-stats__label">Remaining Tasks</span>
                   </div>
                   <div class="momentum-stats__item">
-                    <span class="momentum-stats__value">12</span>
-                    <span class="momentum-stats__label">Day streak</span>
+                    <span class="momentum-stats__value">{{goals.count}}</span>
+                    <span class="momentum-stats__label">Goals</span>
                   </div>
                   <div class="momentum-stats__item">
                     <span class="momentum-stats__value"
-                      >{{finance.balance}}</span
+                      >{{finance.balance}}$</span
                     >
                     <span class="momentum-stats__label">This month</span>
                   </div>
@@ -697,7 +669,7 @@
                   >
                     <dt>Balance</dt>
                     <dd class="momentum-finance__value">
-                      ${{finance.balance}}
+                      {{finance.balance}}$
                     </dd>
                   </div>
                 </dl>

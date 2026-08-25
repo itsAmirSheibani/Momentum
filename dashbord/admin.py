@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Task, MoodEntry, Reflection, Habit, HabitLog, Goal, Transaction
+from .models import Task, MoodEntry, Reflection, Goal, Transaction
 
 
 @admin.register(Task)
@@ -10,7 +10,6 @@ class TaskAdmin(admin.ModelAdmin):
     list_filter = ("priority", "is_completed", "category", "due_date")
     search_fields = ("title", "description")
     date_hierarchy = "due_date"
-    
 
 
 @admin.register(MoodEntry)
@@ -22,7 +21,7 @@ class MoodEntryAdmin(admin.ModelAdmin):
 
 @admin.register(Reflection)
 class ReflectionAdmin(admin.ModelAdmin):
-    list_display = ("owner", "date", "short_content")
+    list_display = ("owner", "date", "content")
     list_filter = ("date",)
     search_fields = ("content",)
     date_hierarchy = "date"
@@ -32,31 +31,10 @@ class ReflectionAdmin(admin.ModelAdmin):
     short_content.short_description = "Content"
 
 
-class HabitLogInline(admin.TabularInline):
-    model = HabitLog
-    extra = 1
-
-
-@admin.register(Habit)
-class HabitAdmin(admin.ModelAdmin):
-    list_display = ("name", "owner", "frequency",
-                    "target_per_week", )
-    list_filter = ("frequency",)
-    search_fields = ("name",)
-    inlines = [HabitLogInline]
-
-
-@admin.register(HabitLog)
-class HabitLogAdmin(admin.ModelAdmin):
-    list_display = ("habit", "date", "completed")
-    list_filter = ("completed", "date")
-    date_hierarchy = "date"
-
-
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "progress", "target_date", "is_archived")
-    list_filter = ("is_archived",)
+    list_display = ("title", "owner", "progress", "target_date")
+    list_filter = ("progress",)
     search_fields = ("title",)
     list_editable = ("progress",)
 

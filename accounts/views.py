@@ -36,10 +36,8 @@ def signup_view(request):
             password1 = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password1)
             login(request, user)
-            return redirect('/')
-        else:
-            return redirect('accounts:signup')
+            return redirect("/")
     else:
+        form = SignUpForm()
 
-        print("FORM ERRORS:", form.errors)
-        return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, "accounts/signup.html", {"form": form})

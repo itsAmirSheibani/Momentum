@@ -60,47 +60,9 @@ class Reflection(models.Model):
     date = models.DateField(blank=True,null=True)
     content = models.TextField(blank=True, null=True)
 
-    class Meta:
-        unique_together = ['owner', 'date']
 
     def __str__(self):
         return f'{self.owner} - {self.date}'
-
-
-class Habit(models.Model):
-
-    class Frequency(models.TextChoices):
-        DAILY = 'Daily', 'daily'
-        WEEKLY = 'Weekly', 'weekly'
-        CUSTOM = 'Custom', 'custom'
-
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              on_delete=models.CASCADE, related_name='habits')
-    name = models.CharField(max_length=100)
-    frequency = models.CharField(max_length=10,
-                                 choices=Frequency.choices, default=Frequency.DAILY)
-
-    target_per_week = models.PositiveSmallIntegerField()
-    is_archived = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-
-class HabitLog(models.Model):
-
-    habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE, related_name='logs')
-    date = models.DateField()
-    completed = models.BooleanField(default=True)
-
-    class Meta:
-        unique_together = ['habit', 'date']
-        ordering = ['-date']
-
-    def __str__(self):
-        return f'{self.date} - {self.habit}'
 
 
 class Goal(models.Model):
@@ -110,7 +72,6 @@ class Goal(models.Model):
     title = models.CharField(max_length=75)
     target_date = models.DateField(null=True, blank=True)
     progress = models.PositiveSmallIntegerField(default=0)
-    is_archived = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
