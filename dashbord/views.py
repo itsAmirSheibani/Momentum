@@ -10,6 +10,176 @@ from django.contrib.auth import update_session_auth_hash
 from .forms import *
 
 
+
+@login_required
+def edit_journal(request, reflection_id):
+
+    reflection = get_object_or_404(Reflection, id=reflection_id, owner=request.user)
+
+    if request.method == 'POST':
+
+        form = ReflectionForm(request.POST, instance=reflection)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('dashbord:journal')
+
+    else:
+        form = ReflectionForm(instance=reflection)
+
+    context = {
+        "form": form,
+        "page_title": "Edit Reflection",
+        "page_subtitle": "Update your reflection details.",
+        "submit_text": "Save Changes",
+        "cancel_url": reverse("dashbord:journal"),
+    }
+
+    return render(
+        request,
+        "edit.html",
+        context
+    )
+
+
+
+@login_required
+def edit_goal(request, goal_id):
+
+    goal = get_object_or_404(Goal, id=goal_id, owner=request.user)
+
+    if request.method == 'POST':
+
+        form = GoalForm(request.POST, instance=goal)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('dashbord:goals')
+
+    else:
+        form = GoalForm(instance=goal)
+
+    context = {
+        "form": form,
+        "page_title": "Edit Goal",
+        "page_subtitle": "Update your goal details.",
+        "submit_text": "Save Changes",
+        "cancel_url": reverse("dashbord:goals"),
+    }
+
+    return render(
+        request,
+        "edit.html",
+        context
+    )
+
+
+@login_required
+def edit_task(request, task_id):
+
+    task = get_object_or_404(Task, id=task_id, owner=request.user)
+
+    if request.method == 'POST':
+
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('dashbord:tasks')
+
+    else:
+        form = TaskForm(instance=task)
+
+    context = {
+        "form": form,
+        "page_title": "Edit Task",
+        "page_subtitle": "Update your task details.",
+        "submit_text": "Save Changes",
+        "cancel_url": reverse("dashbord:tasks"),
+    }
+
+    return render(
+        request,
+        "edit.html",
+        context
+    )
+
+@login_required
+def edit_finance(request, transaction_id):
+
+    transaction = get_object_or_404(Transaction, id=transaction_id, owner=request.user)
+
+    if request.method == 'POST':
+
+        form = FinanceForm(request.POST, instance=transaction)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('dashbord:finance')
+
+    else:
+        form = FinanceForm(instance=transaction)
+
+    context = {
+        "form": form,
+        "page_title": "Edit Transaction",
+        "page_subtitle": "Update your transaction details.",
+        "submit_text": "Save Changes",
+        "cancel_url": reverse("dashbord:finance"),
+    }
+
+    return render(
+        request,
+        "edit.html",
+        context
+    )
+
+
+@login_required
+def delete_finance(request, transaction_id):
+    if request.method == 'POST':
+        transaction = get_object_or_404(Transaction,
+                                        id=transaction_id,owner=request.user)
+        transaction.delete()
+
+    return redirect('dashbord:finance')
+
+
+@login_required
+def delete_goal(request, goal_id):
+    if request.method == 'POST':
+        goal = get_object_or_404(Goal,
+                                 id=goal_id, owner=request.user)
+        goal.delete()
+
+    return redirect('dashbord:goals')
+
+
+@login_required
+def delete_task(request, task_id):
+    if request.method == 'POST':
+        task = get_object_or_404(Task, id=task_id,
+                                 owner=request.user)
+
+        task.delete()
+
+    return redirect('dashbord:tasks')
+
+@login_required
+def delete_journal(request, reflection_id):
+    if request.method=='POST':
+        reflection = get_object_or_404(Reflection,id=reflection_id,
+                                       owner=request.user)
+
+        reflection.delete()
+
+    return redirect('dashbord:journal')
+
+
 @login_required
 def add_goal(request):
     today = timezone.localdate()
@@ -35,7 +205,7 @@ def add_goal(request):
         "cancel_url": reverse("dashbord:goals"),
     }
 
-    return render(request, "add_goal.html", context)
+    return render(request, "add.html", context)
 
 
 @login_required
@@ -63,7 +233,7 @@ def add_finance(request):
         "cancel_url": reverse("dashbord:finance"),
     }
 
-    return render(request, 'add_finance.html', context)
+    return render(request, 'add.html', context)
 
 
 @login_required
@@ -91,7 +261,7 @@ def add_task(request):
         "cancel_url": reverse("dashbord:tasks"),
     }
 
-    return render(request, "add_task.html", context)
+    return render(request, "add.html", context)
 
 
 @login_required
@@ -187,7 +357,7 @@ def dashboard(request):
 @login_required
 def tasks(request):
     today = timezone.localdate()
-    tasks_today = Task.objects.filter(owner=request.user, due_date=today)
+    tasks_today = Task.objects.filter(owner=request.user)
     context = {"tasks": Task.objects.filter(
         owner=request.user), "tasks_today": tasks_today, }
     return render(request, "tasks.html", context)

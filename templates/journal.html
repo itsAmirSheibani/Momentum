@@ -331,6 +331,68 @@
                 <span class="momentum-journal-entry__date">
                     {{ reflect.date }}
                 </span>
+                <span>
+                 <div class="momentum-reflection-card__actions">
+                 
+                   <a
+                    href="{% url 'dashbord:edit_journal' reflect.id %}"
+                    class="momentum-reflection-card__action momentum-reflection-card__action--edit"
+                    aria-label="Edit {{ reflect.title }}"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="15"
+                      height="15"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 20H8L19 9C20.1 7.9 20.1 6.1 19 5C17.9 3.9 16.1 3.9 15 5L4 16V20Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M13.5 6.5L17.5 10.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                      />
+                    </svg>
+                  </a>
+
+                  <form
+                    method="POST"
+                    action="{% url 'dashbord:delete_journal' reflect.id %}"
+                    class="momentum-inline-form"
+                  >
+                    {% csrf_token %}
+
+                    <button
+                      type="submit"
+                      class="momentum-reflection-card__action momentum-reflection-card__action--delete"
+                      aria-label="Delete {{ reflection.title }}"
+                      onclick="return confirm('Delete this reflection?');"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="15"
+                        height="15"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M5 7H19M9 7V5H15V7M8 10V19M12 10V19M16 10V19M7 7L8 20H16L17 7"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                </div> 
+                </span>
             </div>
 
             <p class="momentum-journal-entry__text">
@@ -353,6 +415,68 @@
             <div class="momentum-journal-entry__header">
                 <span class="momentum-journal-entry__date">
                     {{ reflect.date }}
+                </span>
+                <span>
+                 <div class="momentum-task-card__actions">
+                 
+                   <a
+                    href="{% url 'dashbord:edit_journal' reflect.id %}"
+                    class="momentum-reflection-card__action momentum-reflection-card__action--edit"
+                    aria-label="Edit {{ reflect.title }}"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="15"
+                      height="15"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 20H8L19 9C20.1 7.9 20.1 6.1 19 5C17.9 3.9 16.1 3.9 15 5L4 16V20Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M13.5 6.5L17.5 10.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                      />
+                    </svg>
+                  </a>
+
+                  <form
+                    method="POST"
+                    action="{% url 'dashbord:delete_journal' reflect.id %}"
+                    class="momentum-inline-form"
+                  >
+                    {% csrf_token %}
+
+                    <button
+                      type="submit"
+                      class="momentum-reflection-card__action momentum-reflection-card__action--delete"
+                      aria-label="Delete {{ reflection.title }}"
+                      onclick="return confirm('Delete this reflection?');"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="15"
+                        height="15"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M5 7H19M9 7V5H15V7M8 10V19M12 10V19M16 10V19M7 7L8 20H16L17 7"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                </div> 
                 </span>
             </div>
 

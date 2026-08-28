@@ -301,7 +301,7 @@
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Progress</span>
-                <span class="momentum-hero__stat-value">{{goal.progress}}</span>
+                <span class="momentum-hero__stat-value">{{goals.progress}}</span>
               </div>
             </div>
           </section>
@@ -404,7 +404,7 @@
                       <p class="momentum-task-card__title">{{ task.title }}</p>
 
                       <p class="momentum-task-card__desc">
-                        {{ task.description|truncatechars:20 }}
+                        {{ task.description|truncatechars:50 }}
                       </p>
 
                       <div class="momentum-task-card__meta">
@@ -588,7 +588,7 @@
                   </div>
                   <div class="momentum-stats__item">
                     <span class="momentum-stats__value"
-                      >{{finance.balance}}$</span
+                      >{{finance.balance|floatformat:"2g" }}$</span
                     >
                     <span class="momentum-stats__label">This month</span>
                   </div>
@@ -653,7 +653,7 @@
                     <dd
                       class="momentum-finance__value momentum-finance__value--positive"
                     >
-                      {{finance.income}}
+                      {{finance.income|floatformat:"2g" }}
                     </dd>
                   </div>
                   <div class="momentum-finance__row">
@@ -661,7 +661,7 @@
                     <dd
                       class="momentum-finance__value momentum-finance__value--negative"
                     >
-                      {{finance.expenses}}
+                      {{finance.expenses|floatformat:"2g" }}
                     </dd>
                   </div>
                   <div
@@ -669,7 +669,7 @@
                   >
                     <dt>Balance</dt>
                     <dd class="momentum-finance__value">
-                      {{finance.balance}}$
+                      {{finance.balance|floatformat:"2g" }}$
                     </dd>
                   </div>
                 </dl>

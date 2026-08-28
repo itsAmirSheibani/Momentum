@@ -1336,3 +1336,60 @@ input, textarea { font-family: inherit; }
     gap: 6px;
   }
 }
+
+
+.momentum-task-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.momentum-inline-form {
+    margin: 0;
+}
+
+.momentum-task-card__action {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid #e6e8ec;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #858991;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.momentum-task-card__action:hover {
+    background: #f5f6f8;
+    border-color: #d9dce1;
+    color: #33363d;
+}
+
+.momentum-task-card__action:active {
+    transform: scale(0.96);
+}
+
+.momentum-task-card__action--delete:hover {
+    color: #d9535f;
+    border-color: #f0c7ca;
+    background: #fff7f7;
+}
+
+.momentum-task-card__action--edit:hover {
+    color: #5b6ee1;
+    border-color: #cfd5f5;
+    background: #f6f7ff;
+}
