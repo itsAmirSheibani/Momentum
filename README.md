@@ -232,12 +232,6 @@ docker compose down
 
 ---
 
-## Database
-
-The project uses SQLite for development.
-
----
-
 ## Django Concepts Practiced
 
 Building Momentum gave me practical experience with:
