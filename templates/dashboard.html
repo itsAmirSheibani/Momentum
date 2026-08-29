@@ -291,18 +291,20 @@
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Mood</span>
-                <span class="momentum-hero__stat-value">🙂 {{today_mood}}</span>
+                <span class="momentum-hero__stat-value"
+                  >{{today_mood_display|default:"—"}}</span
+                >
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Energy</span>
                 <span class="momentum-hero__stat-value"
-                  >{{today_energy}} / 10</span
+                  >{{today_energy|default:"—"}} / 10</span
                 >
               </div>
               <div class="momentum-hero__stat">
-                <span class="momentum-hero__stat-label">Progress</span>
+                <span class="momentum-hero__stat-label">Goals Progress</span>
                 <span class="momentum-hero__stat-value"
-                  >{{goals.progress}}</span
+                  >{{goals_progress}}%</span
                 >
               </div>
             </div>
@@ -470,69 +472,85 @@
                   How are you feeling today?
                 </h2>
 
-                <div
-                  class="momentum-mood__options"
-                  role="group"
-                  aria-label="Select today's mood"
-                >
-                  <button
-                    type="submit"
-                    name="mood"
-                    class="momentum-mood__option"
-                    value="great"
-                  >
-                    😄
-                  </button>
-                  <button
-                    type="submit"
-                    name="mood"
-                    class="momentum-mood__option"
-                    value="good"
-                  >
-                    🙂
-                  </button>
-                  <button
-                    type="submit"
-                    name="mood"
-                    class="momentum-mood__option"
-                    value="okay"
-                  >
-                    😐
-                  </button>
-                  <button
-                    type="submit"
-                    name="mood"
-                    class="momentum-mood__option"
-                    value="low"
-                  >
-                    😔
-                  </button>
-                  <button
-                    type="submit"
-                    name="mood"
-                    class="momentum-mood__option"
-                    value="bad"
-                  >
-                    😞
-                  </button>
-                </div>
+                <form method="POST" class="momentum-mood__form">
+                  {% csrf_token %}
 
-                <div class="momentum-energy">
-                  <div class="momentum-energy__label-row">
-                    <label for="energyRange">Energy level</label>
-                    <span class="momentum-energy__value" id="energyValue"
-                      >{{today_energy}}</span
+                  <div
+                    class="momentum-mood__options"
+                    role="group"
+                    aria-label="Select today's mood"
+                  >
+                    <button
+                      type="submit"
+                      name="mood"
+                      value="great"
+                      data-mood="great"
+                      class="momentum-mood__option {% if today_mood == 'great' %}is-selected{% endif %}"
+                      aria-pressed="{% if today_mood == 'great' %}true{% else %}false{% endif %}"
                     >
+                      😄
+                    </button>
+                    <button
+                      type="submit"
+                      name="mood"
+                      value="good"
+                      data-mood="good"
+                      class="momentum-mood__option {% if today_mood == 'good' %}is-selected{% endif %}"
+                      aria-pressed="{% if today_mood == 'good' %}true{% else %}false{% endif %}"
+                    >
+                      🙂
+                    </button>
+                    <button
+                      type="submit"
+                      name="mood"
+                      value="okay"
+                      data-mood="okay"
+                      class="momentum-mood__option {% if today_mood == 'okay' %}is-selected{% endif %}"
+                      aria-pressed="{% if today_mood == 'okay' %}true{% else %}false{% endif %}"
+                    >
+                      😐
+                    </button>
+                    <button
+                      type="submit"
+                      name="mood"
+                      value="low"
+                      data-mood="low"
+                      class="momentum-mood__option {% if today_mood == 'low' %}is-selected{% endif %}"
+                      aria-pressed="{% if today_mood == 'low' %}true{% else %}false{% endif %}"
+                    >
+                      😔
+                    </button>
+                    <button
+                      type="submit"
+                      name="mood"
+                      value="bad"
+                      data-mood="bad"
+                      class="momentum-mood__option {% if today_mood == 'bad' %}is-selected{% endif %}"
+                      aria-pressed="{% if today_mood == 'bad' %}true{% else %}false{% endif %}"
+                    >
+                      😞
+                    </button>
                   </div>
-                  <input
-                    type="range"
-                    id="energyRange"
-                    class="momentum-energy__range"
-                    min="1"
-                    max="10"
-                    value="{{today_energy}}"
-                  />
-                </div>
+
+                  <div class="momentum-energy">
+                    <div class="momentum-energy__label-row">
+                      <label for="energyRange">Energy level</label>
+                      <span class="momentum-energy__value" id="energyValue"
+                        >{{today_energy|default:5}}</span
+                      >
+                    </div>
+                    <input
+                      type="range"
+                      id="energyRange"
+                      name="energy"
+                      class="momentum-energy__range"
+                      min="1"
+                      max="10"
+                      value="{{today_energy|default:5}}"
+                      onchange="this.form.submit()"
+                    />
+                  </div>
+                </form>
               </section>
 
               <!-- DAILY NOTE -->

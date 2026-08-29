@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
 from django.utils import timezone
-from django.db.models import Sum
+from django.db.models import Sum, Avg
+from django.contrib import messages
 from .models import Task, Goal, MoodEntry, Reflection, Transaction
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -249,7 +250,7 @@ def add_task(request):
             task.owner = request.user
             task.due_date = today
             task.save()
-
+            
             return redirect("dashbord:tasks")
 
     else:
@@ -291,6 +292,29 @@ def toggle_task(request, task_id):
 def dashboard(request):
     today = timezone.localdate()
 
+    # mood / energy
+    if request.method == "POST" and (
+        "mood" in request.POST or "energy" in request.POST
+    ):
+        mood = request.POST.get("mood")
+        energy = request.POST.get("energy")
+
+        entry, _created = MoodEntry.objects.get_or_create(
+            owner=request.user,
+            date=today,
+            defaults={
+                "mood": mood or MoodEntry.Mood.OKAY,
+                "energy": int(energy) if energy else 5,
+            },
+        )
+        if mood:
+            entry.mood = mood
+        if energy:
+            entry.energy = int(energy)
+        entry.save()
+
+        return redirect("dashbord:dashboard")
+
     # reflection
     if request.method == "POST":
         form = ReflectionForm(request.POST)
@@ -331,12 +355,16 @@ def dashboard(request):
     expenses = month_transactions.filter(type="expense").aggregate(
         total=Sum("amount"))["total"] or 0
 
+    goals_progress = Goal.objects.filter(owner=request.user).aggregate(
+        avg=Avg("progress"))["avg"] or 0
+
     context = {
         "today": today,
         "tasks_today": tasks_today,
         "timed_tasks_today": tasks_today.exclude(due_time__isnull=True).order_by("due_time"),
         "tasks_today_count": tasks_today.count(),
         "today_mood": mood_entry.mood if mood_entry else None,
+        "today_mood_display": mood_entry.get_mood_display() if mood_entry else "",
         "today_energy": mood_entry.energy if mood_entry else None,
         "today_reflection": reflection,
         "stats": {
@@ -346,12 +374,10 @@ def dashboard(request):
         "finance": {"income": income, "expenses": expenses, "balance": income - expenses},
         "transactions": month_transactions,
         "goals": Goal.objects.filter(owner=request.user)[:3],
+        "goals_progress": round(goals_progress),
         "today_reflections": today_reflections,
         "past_entries": past_entries,
         "form": form,
-        "goals": Goal.objects.filter(
-            owner=request.user,)
-
     }
     return render(request, "dashboard.html", context,)
 
@@ -449,10 +475,32 @@ def finance(request):
 
 @login_required
 def settings(request):
-    """if request.method == "POST" and "current_password" in request.POST:
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user),{"password_form": form}"""
+    if request.method == "POST":
+        if "profile_submit" in request.POST:
+            profile_form = ProfileForm(request.POST, instance=request.user)
+            password_form = MomentumPasswordChangeForm(request.user)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, "Profile updated.")
+                return redirect("dashbord:settings")
 
-    return render(request, "settings.html")
+        elif "preferences_submit" in request.POST:
+            profile_form = ProfileForm(instance=request.user)
+            password_form = MomentumPasswordChangeForm(request.user)
+
+        elif "password_submit" in request.POST:
+            profile_form = ProfileForm(instance=request.user)
+            password_form = MomentumPasswordChangeForm(request.user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, "Password changed.")
+                return redirect("dashbord:settings")
+    else:
+        profile_form = ProfileForm(instance=request.user)
+        password_form = MomentumPasswordChangeForm(request.user)
+
+    return render(request, "settings.html", {
+        "profile_form": profile_form,
+        "password_form": password_form,
+    })
