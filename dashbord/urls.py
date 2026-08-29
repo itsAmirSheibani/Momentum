@@ -22,5 +22,5 @@ urlpatterns = [
     path('tasks/<int:task_id>/edit/',edit_task,name='edit_task'),
     path('goals/<int:goal_id>/edit/',edit_goal,name='edit_goal'),
     path('finance/<int:transaction_id>/edit/',edit_finance,name='edit_transaction'),
-    path('journal/<int:reflection_id>/edit/',edit_journal,name='edit_journal')
+    path('journal/<int:reflection_id>/edit/',edit_journal,name='edit_journal'),
 ]

@@ -351,7 +351,7 @@
                 <div class="momentum-goal-card__actions">
                   <a
                     href="{% url 'dashbord:edit_goal' goal.id %}"
-                    class="momentum-task-card__action momentum-goal-card__action--edit"
+                    class="momentum-task-card__action momentum-task-card__action--edit"
                     aria-label="Edit {{ goal.title }}"
                   >
                     <svg
@@ -385,7 +385,7 @@
 
                     <button
                       type="submit"
-                      class="momentum-goal-card__action momentum-goal-card__action--delete"
+                      class="momentum-task-card__action momentum-task-card__action--delete"
                       aria-label="Delete {{ goal.title }}"
                       onclick="return confirm('Delete this Goal?');"
                     >

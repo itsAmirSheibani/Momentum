@@ -10,11 +10,11 @@ from django.contrib.auth import update_session_auth_hash
 from .forms import *
 
 
-
 @login_required
 def edit_journal(request, reflection_id):
 
-    reflection = get_object_or_404(Reflection, id=reflection_id, owner=request.user)
+    reflection = get_object_or_404(
+        Reflection, id=reflection_id, owner=request.user)
 
     if request.method == 'POST':
 
@@ -41,7 +41,6 @@ def edit_journal(request, reflection_id):
         "edit.html",
         context
     )
-
 
 
 @login_required
@@ -107,10 +106,12 @@ def edit_task(request, task_id):
         context
     )
 
+
 @login_required
 def edit_finance(request, transaction_id):
 
-    transaction = get_object_or_404(Transaction, id=transaction_id, owner=request.user)
+    transaction = get_object_or_404(
+        Transaction, id=transaction_id, owner=request.user)
 
     if request.method == 'POST':
 
@@ -143,7 +144,7 @@ def edit_finance(request, transaction_id):
 def delete_finance(request, transaction_id):
     if request.method == 'POST':
         transaction = get_object_or_404(Transaction,
-                                        id=transaction_id,owner=request.user)
+                                        id=transaction_id, owner=request.user)
         transaction.delete()
 
     return redirect('dashbord:finance')
@@ -169,10 +170,11 @@ def delete_task(request, task_id):
 
     return redirect('dashbord:tasks')
 
+
 @login_required
 def delete_journal(request, reflection_id):
-    if request.method=='POST':
-        reflection = get_object_or_404(Reflection,id=reflection_id,
+    if request.method == 'POST':
+        reflection = get_object_or_404(Reflection, id=reflection_id,
                                        owner=request.user)
 
         reflection.delete()
@@ -357,9 +359,17 @@ def dashboard(request):
 @login_required
 def tasks(request):
     today = timezone.localdate()
-    tasks_today = Task.objects.filter(owner=request.user)
-    context = {"tasks": Task.objects.filter(
-        owner=request.user), "tasks_today": tasks_today, }
+    status = request.GET.get("status", "all")
+    tasks_qs = Task.objects.filter(owner=request.user)
+
+    if status == "active":
+        tasks_qs = tasks_qs.filter(is_completed=False)
+    elif status == "completed":
+        tasks_qs = tasks_qs.filter(is_completed=True)
+
+    context = {"tasks": Task.objects.filter(owner=request.user),
+               "tasks_today": tasks_qs,
+               "current_status": status}
     return render(request, "tasks.html", context)
 
 
@@ -421,9 +431,18 @@ def finance(request):
     expenses = month_transactions.filter(type="expense").aggregate(
         total=Sum("amount"))["total"] or 0
 
+    type_filter = request.GET.get("type", "all")
+
+    transactions = month_transactions
+    if type_filter == "income":
+        transactions = transactions.filter(type="income")
+    elif type_filter == "expense":
+        transactions = transactions.filter(type="expense")
+
     context = {
         "finance": {"income": income, "expenses": expenses, "balance": income - expenses},
-        "transactions": month_transactions,
+        "transactions": transactions,
+        "current_type": type_filter,
     }
     return render(request, "finance.html", context)
 

@@ -421,7 +421,7 @@
                  
                    <a
                     href="{% url 'dashbord:edit_journal' reflect.id %}"
-                    class="momentum-reflection-card__action momentum-reflection-card__action--edit"
+                    class="momentum-task-card__action momentum-task-card__action--edit"
                     aria-label="Edit {{ reflect.title }}"
                   >
                     <svg
@@ -455,7 +455,7 @@
 
                     <button
                       type="submit"
-                      class="momentum-reflection-card__action momentum-reflection-card__action--delete"
+                      class="momentum-task-card__action momentum-task-card__action--delete"
                       aria-label="Delete {{ reflection.title }}"
                       onclick="return confirm('Delete this reflection?');"
                     >

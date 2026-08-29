@@ -134,7 +134,7 @@
                 <span>Journal</span>
               </a>
             </li>
-            
+
             <li class="momentum-nav__item">
               <a href="{% url 'dashbord:goals' %}" class="momentum-nav__link">
                 <span class="momentum-nav__icon" aria-hidden="true">
@@ -301,7 +301,9 @@
               </div>
               <div class="momentum-hero__stat">
                 <span class="momentum-hero__stat-label">Progress</span>
-                <span class="momentum-hero__stat-value">{{goals.progress}}</span>
+                <span class="momentum-hero__stat-value"
+                  >{{goals.progress}}</span
+                >
               </div>
             </div>
           </section>
@@ -353,26 +355,26 @@
                     </div>
 
                     <div class="momentum-task-form">
-              <a
-                href="{% url 'dashbord:add_task' %}"
-                class="momentum-btn momentum-btn--primary"
-              >
-                Add Task
-                <svg
-                  viewBox="0 0 24 24"
-                  width="15"
-                  height="15"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 5V19M5 12H19"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </a>
-            </div>
+                      <a
+                        href="{% url 'dashbord:add_task' %}"
+                        class="momentum-btn momentum-btn--primary"
+                      >
+                        Add Task
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="15"
+                          height="15"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M12 5V19M5 12H19"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -545,23 +547,23 @@
                   >What happened today?</label
                 >
                 <form method="POST">
-              {% csrf_token %}
+                  {% csrf_token %}
 
-              <textarea
-                name="content"
-                id="reflectionText"
-                class="momentum-note__textarea"
-                rows="4"
-                placeholder="What happened today?"
-              ></textarea>
+                  <textarea
+                    name="content"
+                    id="reflectionText"
+                    class="momentum-note__textarea"
+                    rows="4"
+                    placeholder="What happened today?"
+                  ></textarea>
 
-              <button
-                type="submit"
-                class="momentum-btn momentum-btn--secondary momentum-note__save"
-              >
-                Add note
-              </button>
-            </form>
+                  <button
+                    type="submit"
+                    class="momentum-btn momentum-btn--secondary momentum-note__save"
+                  >
+                    Add note
+                  </button>
+                </form>
               </section>
 
               <!-- QUICK STATS -->

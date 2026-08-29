@@ -98,6 +98,10 @@ class Transaction(models.Model):
     class Meta:
         ordering = ['-date']
 
+    @property
+    def sign(self):
+        return "+" if self.type == self.Type.INCOME else "-"
+
     def __str__(self):
         sign = "+" if self.type == self.Type.INCOME else "-"
         return f"{sign}{self.amount} — {self.description or self.type}"
