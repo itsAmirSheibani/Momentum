@@ -1,6 +1,28 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
+<style>
+  /* Expired goal */
+
+  .momentum-goal.is-expired .momentum-goal__title {
+    color: #d94a4a !important;
+  }
+
+  .momentum-goal.is-expired .momentum-goal__target_date {
+    color: #d94a4a !important;
+  }
+
+  .momentum-goal.is-expired .momentum-progress-bar__fill {
+    background-color: #d94a4a !important;
+  }
+
+  .momentum-goal.is-expired .momentum-goal__ring-fill {
+    stroke: #d94a4a !important;
+  }
+ .momentum-goal.is-expired .momentum-goal__expired {
+    color: #d94a4a !important;
+} 
+</style>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -307,111 +329,171 @@
           </div>
 
           <section class="momentum-card" aria-labelledby="goalsHeading">
-            <h2
-              class="momentum-card__title"
-              id="goalsHeading"
-              style="display: none"
+  <h2
+    class="momentum-card__title"
+    id="goalsHeading"
+    style="display: none"
+  >
+    Goals
+  </h2>
+
+  <ul class="momentum-goal-list">
+    {% for goal in goals %}
+
+    <li
+      class="momentum-goal{% if goal.target_date < today and goal.progress < 100 %} is-expired{% endif %}"
+    >
+      <svg
+        class="momentum-goal__ring"
+        viewBox="0 0 44 44"
+        aria-hidden="true"
+      >
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-track"
+        />
+
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-fill"
+          style="--progress: {{ goal.progress }}"
+        />
+      </svg>
+
+      <div class="momentum-goal__body">
+        <p class="momentum-goal__title">
+          {{ goal.title }}
+        </p>
+
+        <p class="momentum-goal__target_date">
+          target date: {{ goal.target_date }}
+        </p>
+
+        <div class="momentum-progress-bar">
+          <div
+            class="momentum-progress-bar__fill"
+            style="width: {{ goal.progress }}%"
+          ></div>
+        </div>
+      </div>
+
+      {% if goal.target_date < today and goal.progress < 100 %}
+
+      <div class="momentum-goal__expired">
+        <span>Goal expired</span>
+
+        <form
+          method="POST"
+          action="{% url 'dashbord:delete_goal' goal.id %}"
+          class="momentum-inline-form"
+        >
+          {% csrf_token %}
+
+          <button
+            type="submit"
+            class="momentum-task-card__action momentum-task-card__action--delete"
+            aria-label="Delete {{ goal.title }}"
+            onclick="return confirm('Delete this Goal?');"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              aria-hidden="true"
             >
-              Goals
-            </h2>
-            <ul class="momentum-goal-list">
-              {% for goal in goals%}
-              <li class="momentum-goal">
-                <svg
-                  class="momentum-goal__ring"
-                  viewBox="0 0 44 44"
-                  aria-hidden="true"
-                >
-                  <circle
-                    cx="22"
-                    cy="22"
-                    r="18"
-                    class="momentum-goal__ring-track"
-                  />
-                  <circle
-                    cx="22"
-                    cy="22"
-                    r="18"
-                    class="momentum-goal__ring-fill"
-                    style="--progress: {{goal.progress}}"
-                  />
-                </svg>
-                <div class="momentum-goal__body">
-                  <p class="momentum-goal__title">{{goal.title}}</p>
-                  <p class="momentum-goal__target_date">
-                    target date: {{goal.target_date}}
-                  </p>
-                  <div class="momentum-progress-bar">
-                    <div
-                      class="momentum-progress-bar__fill"
-                      style="width: {{goal.progress}}%"
-                    ></div>
-                  </div>
-                </div>
-                <div class="momentum-goal-card__actions">
-                  <a
-                    href="{% url 'dashbord:edit_goal' goal.id %}"
-                    class="momentum-task-card__action momentum-task-card__action--edit"
-                    aria-label="Edit {{ goal.title }}"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="15"
-                      height="15"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M4 20H8L19 9C20.1 7.9 20.1 6.1 19 5C17.9 3.9 16.1 3.9 15 5L4 16V20Z"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M13.5 6.5L17.5 10.5"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                      />
-                    </svg>
-                  </a>
+              <path
+                d="M5 7H19M9 7V5H15V7M8 10V19M12 10V19M16 10V19M7 7L8 20H16L17 7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
 
-                  <form
-                    method="POST"
-                    action="{% url 'dashbord:delete_goal' goal.id %}"
-                    class="momentum-inline-form"
-                  >
-                    {% csrf_token %}
+      {% else %}
 
-                    <button
-                      type="submit"
-                      class="momentum-task-card__action momentum-task-card__action--delete"
-                      aria-label="Delete {{ goal.title }}"
-                      onclick="return confirm('Delete this Goal?');"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        width="15"
-                        height="15"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M5 7H19M9 7V5H15V7M8 10V19M12 10V19M16 10V19M7 7L8 20H16L17 7"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.7"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  </form>
-                </div>
-                <span class="momentum-goal__percent">{{goal.progress}}%</span>
-              </li>
-              {% endfor %}
-            </ul>
-          </section>
+      <div class="momentum-goal-card__actions">
+
+        <a
+          href="{% url 'dashbord:edit_goal' goal.id %}"
+          class="momentum-task-card__action momentum-task-card__action--edit"
+          aria-label="Edit {{ goal.title }}"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="15"
+            height="15"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 20H8L19 9C20.1 7.9 20.1 6.1 19 5C17.9 3.9 17.9 6.1 19 5C20.1 5.9 20.1 7.9 19 9L8 20H4V16L15 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linejoin="round"
+            />
+
+            <path
+              d="M13.5 6.5L17.5 10.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+          </svg>
+        </a>
+
+        <form
+          method="POST"
+          action="{% url 'dashbord:delete_goal' goal.id %}"
+          class="momentum-inline-form"
+        >
+          {% csrf_token %}
+
+          <button
+            type="submit"
+            class="momentum-task-card__action momentum-task-card__action--delete"
+            aria-label="Delete {{ goal.title }}"
+            onclick="return confirm('Delete this Goal?');"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 7H19M9 7V5H15V7M8 10V19M12 10V19M16 10V19M7 7L8 20H16L17 7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+
+      </div>
+
+      {% endif %}
+
+      <span class="momentum-goal__percent">
+        {{ goal.progress }}%
+      </span>
+
+    </li>
+
+    {% endfor %}
+  </ul>
+</section>
         </div>
       </div>
     </div>

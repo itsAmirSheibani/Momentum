@@ -1,9 +1,14 @@
 from django import forms
-from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from .models import *
+from .models import Task, Reflection, Transaction, Goal
+
+"""
+the widgets in each class, is customized to match the Momentum UI.
+"""
 
 
+# Form used to create and edit tasks.
 class TaskForm(forms.ModelForm):
 
     class Meta:
@@ -38,6 +43,7 @@ class TaskForm(forms.ModelForm):
         }
 
 
+# Form used to create and edit journals.
 class ReflectionForm(forms.ModelForm):
 
     class Meta:
@@ -54,6 +60,7 @@ class ReflectionForm(forms.ModelForm):
         }
 
 
+# Form used to create and edit transactions.
 class FinanceForm(forms.ModelForm):
 
     class Meta:
@@ -81,6 +88,7 @@ class FinanceForm(forms.ModelForm):
         }
 
 
+# Form used to create and edit goals.
 class GoalForm(forms.ModelForm):
 
     class Meta:
@@ -106,6 +114,7 @@ class GoalForm(forms.ModelForm):
         }
 
 
+# Form used to update the user's profile information.
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
@@ -117,11 +126,10 @@ class ProfileForm(forms.ModelForm):
         }
 
 
-
+# Customizes Django's password change form to use.
 class MomentumPasswordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name in self.fields:
-            self.fields[field_name].widget.attrs.update({'class': 'momentum-input'})
-
-
+            self.fields[field_name].widget.attrs.update(
+                {'class': 'momentum-input'})

@@ -4,6 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class SignUpForm(UserCreationForm):
+    """
+    Custom registration form for creating a new user account.
+    """
+    
     username = forms.CharField(
         label="", max_length=20, widget=forms.TextInput())
 

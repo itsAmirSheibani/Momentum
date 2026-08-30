@@ -21,7 +21,7 @@ class MoodEntryAdmin(admin.ModelAdmin):
 
 @admin.register(Reflection)
 class ReflectionAdmin(admin.ModelAdmin):
-    list_display = ("owner", "date", "content")
+    list_display = ("owner", "date", "short_content")
     list_filter = ("date",)
     search_fields = ("content",)
     date_hierarchy = "date"

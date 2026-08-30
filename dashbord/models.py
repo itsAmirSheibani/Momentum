@@ -1,8 +1,12 @@
-from django.conf import settings
 from django.db import models
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+"""
+Stores tasks created by each user, including their priority, due date/time
+and completion status.
+"""
 
 
 class Task(models.Model):
@@ -32,6 +36,11 @@ class Task(models.Model):
         return self.title
 
 
+"""
+Stores the user's mood and energy level for each day.
+"""
+
+
 class MoodEntry(models.Model):
 
     class Mood(models.TextChoices):
@@ -55,6 +64,12 @@ class MoodEntry(models.Model):
         return f'{self.owner} - {self.mood} - {self.date}'
 
 
+"""
+Stores daily journal reflections written by the user.
+each user can have multiple reflection each day
+"""
+
+
 class Reflection(models.Model):
 
     owner = models.ForeignKey(User,
@@ -64,6 +79,11 @@ class Reflection(models.Model):
 
     def __str__(self):
         return f'{self.owner} - {self.date}'
+
+
+"""
+Stores personal goals and their progress toward a target date.
+"""
 
 
 class Goal(models.Model):
@@ -80,6 +100,11 @@ class Goal(models.Model):
 
     def __str__(self):
         return self.title
+
+
+"""
+Stores user's incomes and expenses.
+"""
 
 
 class Transaction(models.Model):
