@@ -223,7 +223,7 @@
             >
             <span class="momentum-profile__meta">
               <span class="momentum-profile__name">{{user.username}}</span>
-              <span class="momentum-profile__role">Free plan</span>
+              <span class="momentum-profile__role">{{user.email|default:"(no email)"}}</span>
             </span>
           </a>
         </div>
