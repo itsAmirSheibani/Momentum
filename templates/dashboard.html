@@ -616,48 +616,148 @@
               </section>
 
               <!-- UPCOMING GOALS -->
-              <section class="momentum-card" aria-labelledby="goalsHeading">
-                <h2 class="momentum-card__title" id="goalsHeading">
-                  Upcoming Goals
-                </h2>
-                <ul class="momentum-goal-list">
-                  {% for goal in goals %}
-                  <li class="momentum-goal">
-                    <svg
-                      class="momentum-goal__ring"
-                      viewBox="0 0 44 44"
-                      aria-hidden="true"
-                    >
-                      <circle
-                        cx="22"
-                        cy="22"
-                        r="18"
-                        class="momentum-goal__ring-track"
-                      />
-                      <circle
-                        cx="22"
-                        cy="22"
-                        r="18"
-                        class="momentum-goal__ring-fill"
-                        style="--progress: {{goal.progress}}"
-                      />
-                    </svg>
-                    <div class="momentum-goal__body">
-                      <p class="momentum-goal__title">{{goal}}</p>
-                      <div class="momentum-progress-bar">
-                        <div
-                          class="momentum-progress-bar__fill"
-                          style="width: {{goal.progress}}%"
-                        ></div>
-                      </div>
-                    </div>
-                    <span class="momentum-goal__percent"
-                      >{{goal.progress}}%</span
-                    >
-                  </li>
-                  {% endfor %}
-                </ul>
-              </section>
+<section class="momentum-card" aria-labelledby="goalsHeading">
+  <h2 class="momentum-card__title" id="goalsHeading">
+    Upcoming Goals
+  </h2>
+
+  <ul class="momentum-goal-list">
+    {% for goal in goals %}
+
+    {% if goal.target_date < today and goal.progress < 100 %}
+
+    <!-- EXPIRED GOAL -->
+    <li class="momentum-goal">
+
+      <!-- Progress Ring -->
+      <svg
+        class="momentum-goal__ring"
+        viewBox="0 0 44 44"
+        aria-hidden="true"
+      >
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-track"
+        />
+
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-fill"
+          style="
+            --progress: {{ goal.progress }};
+            stroke: #d85c5c !important;
+          "
+        />
+      </svg>
+
+      <!-- Goal content -->
+      <div class="momentum-goal__body">
+
+        <p
+          class="momentum-goal__title"
+          style="color: #d85c5c !important;"
+        >
+          {{ goal }}
+        </p>
+
+        <!-- Progress Bar -->
+        <div
+          class="momentum-progress-bar"
+          style="
+            width: 100%;
+            flex: 1;
+          "
+        >
+          <div
+            class="momentum-progress-bar__fill"
+            style="
+              width: {{ goal.progress }}%;
+              background: #d85c5c !important;
+            "
+          ></div>
+        </div>
+
+      </div>
+
+      <!-- Percentage -->
+      <span class="momentum-goal__percent">
+        {{ goal.progress }}%
+      </span>
+
+    </li>
+
+    {% else %}
+
+    <!-- ACTIVE GOAL -->
+    <li class="momentum-goal">
+
+      <!-- Progress Ring -->
+      <svg
+        class="momentum-goal__ring"
+        viewBox="0 0 44 44"
+        aria-hidden="true"
+      >
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-track"
+        />
+
+        <circle
+          cx="22"
+          cy="22"
+          r="18"
+          class="momentum-goal__ring-fill"
+          style="--progress: {{ goal.progress }}"
+        />
+      </svg>
+
+      <!-- Goal content -->
+      <div class="momentum-goal__body">
+
+        <p class="momentum-goal__title">
+          {{ goal }}
+        </p>
+
+        <!-- Progress Bar -->
+        <div
+          class="momentum-progress-bar"
+          style="
+            width: 100%;
+            flex: 1;
+          "
+        >
+          <div
+            class="momentum-progress-bar__fill"
+            style="width: {{ goal.progress }}%"
+          ></div>
+        </div>
+
+      </div>
+
+      <!-- Percentage -->
+      <span class="momentum-goal__percent">
+        {{ goal.progress }}%
+      </span>
+
+    </li>
+
+    {% endif %}
+
+    {% empty %}
+
+    <li class="momentum-goal">
+      No goals yet.
+    </li>
+
+    {% endfor %}
+  </ul>
+</section>
 
               <!-- FINANCE SUMMARY -->
               <section

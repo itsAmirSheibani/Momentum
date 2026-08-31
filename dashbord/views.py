@@ -100,7 +100,7 @@ def dashboard(request):
         },
         "finance": {"income": income, "expenses": expenses, "balance": income - expenses},
         "transactions": month_transactions,
-        "goals": Goal.objects.filter(owner=request.user)[:3],
+        "goals": Goal.objects.filter(owner=request.user),
         "goals_progress": round(goals_progress),
         "today_reflections": today_reflections,
         "past_entries": past_entries,
@@ -493,14 +493,12 @@ def add_finance(request):
 
     # Create a new transaction for the current user.
 
-    today = timezone.localdate()
     if request.method == "POST":
         form = FinanceForm(request.POST)
 
         if form.is_valid():
             finance = form.save(commit=False)
             finance.owner = request.user
-            finance.date = today
             finance.save()
 
             return redirect("dashbord:finance")
