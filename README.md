@@ -80,51 +80,51 @@ Instead of making another simple to-do list, I wanted to bring everyday planning
 ### Authentication
 
 <p align="center">
-  <img src="screenshots/auth/login.png" width="800" alt="Login page">
+  <img src="screenshots/auth/Login.png" width="800" alt="Login page">
 </p>
 
 <p align="center">
-  <img src="screenshots/auth/signup.png" width="800" alt="Sign up page">
+  <img src="screenshots/auth/Signup.png" width="800" alt="Sign up page">
 </p>
 
 <p align="center">
-  <img src="screenshots/auth/logout.png" width="800" alt="Logout page">
+  <img src="screenshots/auth/Logout.png" width="800" alt="Logout page">
 </p>
 
 ### Dashboard
 
 <p align="center">
-  <img src="screenshots/dashboard.png" width="800" alt="Dashboard">
+  <img src="screenshots/Dashboard.png" width="800" alt="Dashboard">
 </p>
 
 ### Tasks
 
 <p align="center">
-  <img src="screenshots/tasks.png" width="800" alt="Tasks page">
+  <img src="screenshots/Tasks.png" width="800" alt="Tasks page">
 </p>
 
 ### Journal
 
 <p align="center">
-  <img src="screenshots/journal.png" width="800" alt="Journal page">
+  <img src="screenshots/Journal.png" width="800" alt="Journal page">
 </p>
 
 ### Goals
 
 <p align="center">
-  <img src="screenshots/goals.png" width="800" alt="Goals page">
+  <img src="screenshots/Goals.png" width="800" alt="Goals page">
 </p>
 
 ### Finance
 
 <p align="center">
-  <img src="screenshots/finance.png" width="800" alt="Finance page">
+  <img src="screenshots/Finance.png" width="800" alt="Finance page">
 </p>
 
 ### Settings
 
 <p align="center">
-  <img src="screenshots/settings.png" width="800" alt="Settings page">
+  <img src="screenshots/Settings.png" width="800" alt="Settings page">
 </p>
 
 
