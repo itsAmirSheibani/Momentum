@@ -75,61 +75,59 @@ Instead of making another simple to-do list, I wanted to bring everyday planning
 | Frontend | HTML, CSS, Vanilla JavaScript |
 | Containerization | Docker, Docker Compose |
 
----
+## Screenshots
 
-## Project Structure
+### Authentication
 
-```text
-Momentum/
-├── accounts/
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-│
-├── dashbord/
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   ├── views.py
-│   └── static/
-│       └── accounts/
-│           ├── momentum-auth.css  
-│           └── momentum-auth.js
-        └── dashbord/
-│           ├── css/
-│           │   └── style.css
-│           ├── js/
-│           │   └── app.js
-│           └── img/
-│               └── favicon.svg
-│
-├── Momentum/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── templates/
-│   ├── dashboard.html
-│   ├── tasks.html
-│   ├── journal.html
-│   ├── goals.html
-│   ├── finance.html
-│   ├── settings.html
-│   ├── add.html
-│   ├── edit.html
-│   └── accounts/
-│       ├── login.html
-│       ├── logout.html
-│       └── signup.html
-│
-├── Dockerfile
-├── compose.yaml
-├── requirements.txt
-├── manage.py
-├── .gitignore
-└── README.md
+<p align="center">
+  <img src="screenshots/auth/login.png" width="800" alt="Login page">
+</p>
+
+<p align="center">
+  <img src="screenshots/auth/signup.png" width="800" alt="Sign up page">
+</p>
+
+<p align="center">
+  <img src="screenshots/auth/logout.png" width="800" alt="Logout page">
+</p>
+
+### Dashboard
+
+<p align="center">
+  <img src="screenshots/dashboard.png" width="800" alt="Dashboard">
+</p>
+
+### Tasks
+
+<p align="center">
+  <img src="screenshots/tasks.png" width="800" alt="Tasks page">
+</p>
+
+### Journal
+
+<p align="center">
+  <img src="screenshots/journal.png" width="800" alt="Journal page">
+</p>
+
+### Goals
+
+<p align="center">
+  <img src="screenshots/goals.png" width="800" alt="Goals page">
+</p>
+
+### Finance
+
+<p align="center">
+  <img src="screenshots/finance.png" width="800" alt="Finance page">
+</p>
+
+### Settings
+
+<p align="center">
+  <img src="screenshots/settings.png" width="800" alt="Settings page">
+</p>
+
+
 ```
 ## Getting Started
 
