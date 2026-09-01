@@ -12,7 +12,6 @@ Instead of making another simple to-do list, I wanted to bring everyday planning
 - User registration
 - User login and logout
 - Password change
-- Custom user model with email-based authentication
 
 ### Dashboard
 - Today's tasks and completion progress
@@ -211,15 +210,15 @@ http://127.0.0.1:8000/
 ### Run Django management commands inside the container
 
 ```bash
-docker compose exec python manage.py migrate
+docker compose exec momentum python manage.py migrate
 ```
 
 ```bash
-docker compose exec python manage.py makemigrations
+docker compose exec momentum python manage.py makemigrations
 ```
 
 ```bash
-docker compose exec python manage.py createsuperuser
+docker compose exec momentum python manage.py createsuperuser
 ```
 
 ### Stop the containers
