@@ -1,0 +1,23 @@
+services:
+  momentum:
+    image: momentum
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Bind-mounts your local db.sqlite3 straight into the container at
+      # the exact path Django expects it (BASE_DIR / 'db.sqlite3' → /app
+      # since WORKDIR is /app). This is the SAME file on disk, not a copy —
+      # so `docker compose up --build` never wipes your data, and any
+      # data the app writes while running is visible on your host too.
+      #
+      # IMPORTANT: this only works if db.sqlite3 already exists locally
+      # before the first `docker compose up`. If it doesn't exist yet,
+      # Docker will create an empty *folder* named db.sqlite3 instead of
+      # mounting a file — so run `python manage.py migrate` locally once
+      # first (creates db.sqlite3), THEN start the container.
+      - ./db.sqlite3:/app/db.sqlite3
+    environment:
+      - PYTHONUNBUFFERED=1
